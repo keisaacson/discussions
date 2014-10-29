@@ -1,0 +1,11 @@
+<h2><%= @discussion.title %> Leader Page</h2>
+
+<p>Leader Code: <%= @discussion.leader_code %></p>
+<p>Participant Code: <%= @discussion.participant_code %></p>
+
+<ul class="questions-list">
+
+</ul>
+
+<%= link_to 'Show Participant Page', discussion_path(@discussion.id) %></br>
+<%= link_to 'All Discussions', discussions_path %>

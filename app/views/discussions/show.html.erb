@@ -1,6 +1,18 @@
-<h2><%= @discussion.title %></h2>
+<h2><%= @discussion.title %> Participant Page</h2>
 
-<p>Leader Code: <%= @discussion.leader_code %></p>
-<p>Participant Code: <%= @discussion.participant_code %></p>
+<div>
+	<label for="question"> Question </label>
+	<input type="text" id="question" name="question[content]">
+</br>
+	<button type="button" class="question-button">Submit Question</button>
+</div>
 
+<%= link_to 'Show Leader Page', "/discussions/#{@discussion.id}/leader" %></br>
 <%= link_to 'All Discussions', discussions_path %>
+
+<script>
+	var channel = dispatcher.subscribe('new_question');
+	channel.bind('add_new_question', function(data) {
+	  console.log('channel event received: ' + data['content']);
+	});
+</script>

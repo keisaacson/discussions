@@ -2,7 +2,7 @@
 <% if @discussions.length == 0 %>
 	<p>There are no discussions at this time.</p>
 <% else %>
-	<ul>
+	<ul class="discussions_list">
 	<% @discussions.each do |d| %>
 		<li><%= link_to "#{d.title}", discussion_path(d.id) %></li>
 	<% end %>
@@ -20,3 +20,11 @@
 	</div>
 	<input type="submit" value="Create Discussion">
 <% end -%>
+
+<script>
+	var channel = dispatcher.subscribe('new_discussion');
+	channel.bind('update_discussions_index', function(data) {
+	  console.log('channel event received: ' + data['title']);
+	  $('.discussions_list').append('<li><a href="/discussions/'+data['id']+'">'+data['title']+'</a></li>');
+	});
+</script>
