@@ -17,6 +17,7 @@ class DiscussionsController < ApplicationController
 
   def show_leader
     @discussion = Discussion.find(params[:id])
+    @questions = Question.where(discussion_id: params[:id])
   end
 
   def create

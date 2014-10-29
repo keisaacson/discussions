@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029153341) do
+ActiveRecord::Schema.define(version: 20141029210311) do
 
   create_table "discussions", force: true do |t|
     t.string   "title"
@@ -21,5 +21,16 @@ ActiveRecord::Schema.define(version: 20141029153341) do
     t.datetime "updated_at"
     t.string   "leader_email"
   end
+
+  create_table "questions", force: true do |t|
+    t.text     "content"
+    t.integer  "discussion_id"
+    t.string   "question_status"
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "questions", ["discussion_id"], name: "index_questions_on_discussion_id"
 
 end

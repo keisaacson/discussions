@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   root to: "discussions#index"
+
   get 'discussions/:id/leader' => 'discussions#show_leader'
-  resources :discussions
+  
+  resources :discussions do
+    resources :questions, :only => [:create]
+  end
+
+  resources :questions, :only => [:update]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

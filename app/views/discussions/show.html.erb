@@ -1,18 +1,17 @@
 <h2><%= @discussion.title %> Participant Page</h2>
 
-<div>
-	<label for="question"> Question </label>
-	<input type="text" id="question" name="question[content]">
-</br>
-	<button type="button" class="question-button">Submit Question</button>
-</div>
+<p class="message-container"></p>
+
+<%= form_tag("/discussions/#{@discussion.id}/questions", method: :post, remote: true) do -%>
+	<div>
+		<label for="question"> Question </label>
+		<input type="text" id="question" name="question[content]">
+
+		<input type="hidden" name="question[discussion_id]" value=<%="#{@discussion.id}"%>>
+	</br>
+		<input type="submit" value="Submit Question">
+	</div>
+<% end -%>
 
 <%= link_to 'Show Leader Page', "/discussions/#{@discussion.id}/leader" %></br>
 <%= link_to 'All Discussions', discussions_path %>
-
-<script>
-	var channel = dispatcher.subscribe('new_question');
-	channel.bind('add_new_question', function(data) {
-	  console.log('channel event received: ' + data['content']);
-	});
-</script>
