@@ -1,0 +1,22 @@
+<h2>Current Discussions</h2>
+<% if @discussions.length == 0 %>
+	<p>There are no discussions at this time.</p>
+<% else %>
+	<ul>
+	<% @discussions.each do |d| %>
+		<li><%= link_to "#{d.title}", discussion_path(d.id) %></li>
+	<% end %>
+	</ul>
+<% end %>
+
+<%= form_tag("/discussions", method: :post) do -%>
+	<div>
+		<label for="title">Title </label>
+		<input type="text" id="title" name="discussion[title]">
+	</div>
+	<div>
+		<label for="email">Email </label>
+		<input type="text" id="email" name="discussion[leader_email]">
+	</div>
+	<input type="submit" value="Create Discussion">
+<% end -%>
