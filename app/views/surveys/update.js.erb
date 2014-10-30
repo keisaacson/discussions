@@ -1,12 +1,14 @@
 (function() {
 	var message = "<%= @message %>";
 	$('p.message-container').text(message);
-	$('input#question').val('');
 	<% if @error.nil? %>
 		var survey_status = "<%= @survey.survey_status %>";
 		var survey_id = "<%= @survey.id %>";
 		var surveyListHtml = '<li class="' + survey_status + '-item-' + survey_id + '"><%= @survey.survey_question %>';
 		var surveyFormHtml = "<%= j render('discussions/survey_update_status', :s => @survey, :status => @survey.survey_status) %>";
+		$('li.closed-item-' + survey_id).remove();
+		$('li.open-item-' + survey_id).remove();
 		$('.' + survey_status + '-surveys-list').append(surveyListHtml + surveyFormHtml + "</li>");
+		$('.' + survey_status + '-surveys-list').last().addClass(survey_status + '-item-' + survey_id);
 	<% end %>
 })();

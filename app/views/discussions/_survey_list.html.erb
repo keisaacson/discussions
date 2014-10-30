@@ -1,0 +1,9 @@
+<ul class=<%="#{status}-surveys-list"%>>
+	<% if surveys[status] %>
+		<% surveys[status].each do |s| %>
+			<li class=<%="#{status}-item-#{s.id}"%>><%= s.survey_question %>
+				<%= render('discussions/survey_update_status', {:s => s, :status => status}) %>
+			</li>
+		<% end %>	
+	<% end %>
+</ul>

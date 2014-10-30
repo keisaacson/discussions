@@ -12,11 +12,23 @@ class DiscussionsController < ApplicationController
   end
 
   def show
-    @discussion = Discussion.find(params[:id])
+    discussions = Discussion.all
+    discussion_ids = discussions.map {|d| d.id}
+    if discussion_ids.include?(params[:id].to_i)
+      @discussion = Discussion.find(params[:id])
+    else
+      redirect_to discussions_path
+    end
   end
 
   def show_leader
-    @discussion = Discussion.find(params[:id])
+    discussions = Discussion.all
+    discussion_ids = discussions.map {|d| d.id}
+    if discussion_ids.include?(params[:id].to_i)
+      @discussion = Discussion.find(params[:id])
+    else
+      redirect_to discussions_path
+    end
   end
 
   def create

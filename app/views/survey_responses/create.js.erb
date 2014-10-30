@@ -1,0 +1,7 @@
+(function() {
+	var surveyId = "<%= @survey_response.survey_id %>";
+	var message = "<%= @message %>";
+	$('p.message-container').text(message);
+	$('div#survey' + surveyId).remove();
+	console.log(surveyId, message);
+})();
