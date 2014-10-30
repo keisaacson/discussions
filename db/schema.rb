@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029210311) do
+ActiveRecord::Schema.define(version: 20141030001028) do
 
   create_table "discussions", force: true do |t|
     t.string   "title"
@@ -26,11 +26,21 @@ ActiveRecord::Schema.define(version: 20141029210311) do
     t.text     "content"
     t.integer  "discussion_id"
     t.string   "question_status"
-    t.text     "answer"
+    t.text     "response"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "questions", ["discussion_id"], name: "index_questions_on_discussion_id"
+
+  create_table "surveys", force: true do |t|
+    t.text     "survey_question"
+    t.text     "correct_answer"
+    t.integer  "discussion_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "surveys", ["discussion_id"], name: "index_surveys_on_discussion_id"
 
 end

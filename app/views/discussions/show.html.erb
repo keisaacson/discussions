@@ -13,5 +13,21 @@
 	</div>
 <% end -%>
 
+<p>Incoming Survey</p>
+<ul class="survey-list">
+	<% if @discussion.surveys.length > 0 %>
+		<% @discussion.surveys.each do |s| %>
+			<li><%= s.survey_question %></li>
+		<% end %>	
+	<% end %>
+</ul>
+
 <%= link_to 'Show Leader Page', "/discussions/#{@discussion.id}/leader" %></br>
 <%= link_to 'All Discussions', discussions_path %>
+
+<script>
+	var channel = dispatcher.subscribe('new_survey');
+	channel.bind('send_out_survey', function(data) {
+	  $('ul.survey-list').append('<li>'+data['survey_question']+'</li>');
+	});
+</script>

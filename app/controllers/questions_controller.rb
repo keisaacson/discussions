@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.question_status = 'unanswered'
-    @question.answer = 'N/A'
+    @question.response = 'N/A'
     if @question.save
       WebsocketRails[:new_question].trigger(:add_new_question, @question)
       @message = 'Question added successfully.'

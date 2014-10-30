@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   
   resources :discussions do
     resources :questions, :only => [:create]
+    resources :surveys, :only => [:create]
   end
 
   resources :questions, :only => [:update]
+  resources :surveys, :only => [:update]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
