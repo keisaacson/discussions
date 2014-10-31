@@ -1,4 +1,4 @@
-<div id=<%"survey-responses-#{s.id}"%>>
+<div id="<%"survey-responses-#{s.id}"%>" hidden>
 	<li> <%= s.survey_question %> </li>
 	<ul class="survey-responses-list">
 	<% s.survey_responses.each do |r| %>
@@ -7,4 +7,3 @@
 	</ul>
 </div>
 
-				

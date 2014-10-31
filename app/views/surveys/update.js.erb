@@ -11,7 +11,6 @@
 		$('.' + survey_status + '-surveys-list').append(surveyListHtml + surveyFormHtml + "</li>");
 	<% end %>
 	<% if @survey.survey_status == 'ended' %>
-		console.log('This should only print when a survey is ended.');
 		var surveyResponseHtml = "<%= j render('survey_responses/responses_list', {:s => @survey}) %>";
 		$('.ended-survey-responses-list').append(surveyResponseHtml);
 	<% end %>
