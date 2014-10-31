@@ -19,7 +19,7 @@
 
 <% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
 
-<div class="survey-responses-container">
+<div class="surveys-container">
 	<p>Open Surveys</p>
 	<%= render('discussions/survey_list', {:surveys => surveys, :status => 'open'}) %>
 
@@ -39,6 +39,7 @@
 			<% end %>
 		<% end %>
 	</ul>
+	<button class="hide-results-button" hidden>Hide Results</button>
 </div>
 
 <p>Incoming Questions</p>
