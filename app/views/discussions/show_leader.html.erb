@@ -19,17 +19,26 @@
 
 <% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
 
-<p>Open Surveys</p>
-<%= render('discussions/survey_list', {:surveys => surveys, :status => 'open'}) %>
+<div class="survey-responses-container">
+	<p>Open Surveys</p>
+	<%= render('discussions/survey_list', {:surveys => surveys, :status => 'open'}) %>
 
-<p>Closed Surveys</p>
-<%= render('discussions/survey_list', {:surveys => surveys, :status => 'closed'}) %>
+	<p>Closed Surveys</p>
+	<%= render('discussions/survey_list', {:surveys => surveys, :status => 'closed'}) %>
 
-<p>Ended Surveys</p>
-<%= render('discussions/survey_list', {:surveys => surveys, :status => 'ended'}) %>
+	<p>Ended Surveys</p>
+	<%= render('discussions/survey_list', {:surveys => surveys, :status => 'ended'}) %>
+</div>
 
 <div class="survey-responses-container">
-
+	<p>Survey Responses</p>
+	<ul class="ended-survey-responses-list">
+		<% if surveys['ended'] %>
+			<% surveys['ended'].each do |s| %>
+				<%= render('survey_responses/responses_list', {:s => s}) %>
+			<% end %>
+		<% end %>
+	</ul>
 </div>
 
 <p>Incoming Questions</p>
@@ -49,12 +58,6 @@
 	var channel = dispatcher.subscribe('questions');
 	channel.bind('add_new_question', function(data) {
 	    $('ul.questions-list').append('<li>'+data['content']+'</li>');
-	});
-	$(document).on('ready', function() {
-		$('view-results-button').on('click', function(e) {
-			var $me = $(e.target);
-			console.log($me);
-		});
 	});
 </script>
 

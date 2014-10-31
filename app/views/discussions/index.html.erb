@@ -1,13 +1,13 @@
 <h2>Current Discussions</h2>
-<% if @discussions.length == 0 %>
-	<p>There are no discussions at this time.</p>
-<% else %>
-	<ul class="discussions_list">
-	<% @discussions.each do |d| %>
-		<li><%= link_to "#{d.title}", discussion_path(d.id) %></li>
+<ul class="discussions_list">
+	<% if @discussions.length == 0 %>
+		<p class="empty-discussions">There are no discussions at this time.</p>
+	<% else %>
+		<% @discussions.each do |d| %>
+			<li><%= link_to "#{d.title}", discussion_path(d.id) %></li>
+		<% end %>
 	<% end %>
-	</ul>
-<% end %>
+</ul>
 
 <%= form_tag("/discussions", method: :post) do -%>
 	<div>
@@ -24,7 +24,7 @@
 <script>
 	var channel = dispatcher.subscribe('new_discussion');
 	channel.bind('update_discussions_index', function(data) {
-	  console.log('channel event received: ' + data['title']);
+	  $('p.empty-discussions').remove();
 	  $('.discussions_list').append('<li><a href="/discussions/'+data['id']+'">'+data['title']+'</a></li>');
 	});
 </script>

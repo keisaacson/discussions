@@ -9,6 +9,10 @@
 		$('li.closed-item-' + survey_id).remove();
 		$('li.open-item-' + survey_id).remove();
 		$('.' + survey_status + '-surveys-list').append(surveyListHtml + surveyFormHtml + "</li>");
-		$('.' + survey_status + '-surveys-list').last().addClass(survey_status + '-item-' + survey_id);
+	<% end %>
+	<% if @survey.survey_status == 'ended' %>
+		console.log('This should only print when a survey is ended.');
+		var surveyResponseHtml = "<%= j render('survey_responses/responses_list', {:s => @survey}) %>";
+		$('.ended-survey-responses-list').append(surveyResponseHtml);
 	<% end %>
 })();

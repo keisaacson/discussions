@@ -1,0 +1,10 @@
+<div id=<%"survey-responses-#{s.id}"%>>
+	<li> <%= s.survey_question %> </li>
+	<ul class="survey-responses-list">
+	<% s.survey_responses.each do |r| %>
+		<li><%= r.content %></li>
+	<% end %>
+	</ul>
+</div>
+
+				
