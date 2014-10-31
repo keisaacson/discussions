@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
     @question.question_status = 'unanswered'
     @question.response = 'N/A'
     if @question.save
-      WebsocketRails[:new_question].trigger(:add_new_question, @question)
+      WebsocketRails[:questions].trigger(:add_new_question, @question)
       @message = 'Question added successfully.'
     else
       @message = 'There was an error creating your discussion.'
