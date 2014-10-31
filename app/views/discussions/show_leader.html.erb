@@ -28,6 +28,10 @@
 <p>Ended Surveys</p>
 <%= render('discussions/survey_list', {:surveys => surveys, :status => 'ended'}) %>
 
+<div class="survey-responses-container">
+
+</div>
+
 <p>Incoming Questions</p>
 <ul class="questions-list">
 	<% if @discussion.questions.length > 0 %>
@@ -44,7 +48,13 @@
 <script>
 	var channel = dispatcher.subscribe('questions');
 	channel.bind('add_new_question', function(data) {
-	  $('ul.questions-list').append('<li>'+data['content']+'</li>');
+	    $('ul.questions-list').append('<li>'+data['content']+'</li>');
+	});
+	$(document).on('ready', function() {
+		$('view-results-button').on('click', function(e) {
+			var $me = $(e.target);
+			console.log($me);
+		});
 	});
 </script>
 

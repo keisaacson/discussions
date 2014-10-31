@@ -7,6 +7,6 @@
 		<input type="hidden" name="survey[survey_status]" value="open">
 		<input type="submit" value="Send Survey">
 	<% when 'ended'%>
-		<button type="button">View Results</button>
+		<button type="button" class="view-results-button" id=<%="survey#{s.id}"%>>View Results</button>
 	<% end %>
 <% end %>
