@@ -10,4 +10,8 @@ $('.discussions.show_leader').ready(function(){
 		$('.survey-responses-div').hide();
 		$('.hide-results-button').hide();
 	});
+	$('.respond-to-question-button').on('click', function(e) {
+		$(e.target).next('form').show();
+		$(e.target).hide();
+	});
 })

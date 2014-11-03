@@ -13,5 +13,16 @@
 	<% if @survey.survey_status == 'ended' %>
 		var surveyResponseHtml = "<%= j render('survey_responses/responses_list', {:s => @survey}) %>";
 		$('.ended-survey-responses-list').append(surveyResponseHtml);
+		$('.view-results-button').on('click', function(e) {
+			var id = e.target.id;
+			var numId = id.match(/\d+/)[0];
+			$('.survey-responses-div').hide();
+			$('div#survey-responses-' + numId).show();
+			$('.hide-results-button').show();
+		});
+		$('.hide-results-button').on('click', function() {
+			$('.survey-responses-div').hide();
+			$('.hide-results-button').hide();
+		});
 	<% end %>
 })();

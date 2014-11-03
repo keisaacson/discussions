@@ -1,0 +1,10 @@
+(function() {
+	var message = "<%= @message %>";
+	$('p.message-container').text(message);
+	var id = "<%= @question.id %>";
+	$('span#question' + id + '-response-span').remove();
+	var content = "<%= @question.content %>";
+	var response = "<%= @question.response %>";
+	var responseHtml = '<span id="question' + id + '-answered-span"><li>' + content + '</li><p>' + response + '</p></span>';
+	$('.old-questions-list').append(responseHtml);
+})();

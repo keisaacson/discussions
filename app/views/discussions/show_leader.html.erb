@@ -42,14 +42,34 @@
 	<button class="hide-results-button" hidden>Hide Results</button>
 </div>
 
-<p>Incoming Questions</p>
-<ul class="questions-list">
-	<% if @discussion.questions.length > 0 %>
-		<% @discussion.questions.each do |q| %>
-			<li><%= q.content %></li>
-		<% end %>	
-	<% end %>
-</ul>
+<div class="participant-questions-container">
+	<p>New Participant Questions</p>
+	<ul class="questions-list">
+		<% if @discussion.questions.length > 0 %>
+			<% @discussion.questions.each do |q| %>
+				<% if q.question_status == "unanswered" %>
+					<%= render('questions/question_response_form', {:q => q}) %>
+				<% end %>	
+			<% end %>	
+		<% end %>
+	</ul>
+</div>
+
+<div class="answered-questions-container">
+	<p>Old Participant Questions</p>
+	<ul class="old-questions-list">
+		<% if @discussion.questions.length > 0 %>
+			<% @discussion.questions.each do |q| %>
+				<% if q.question_status == "answered" %>
+					<span id=<%="question#{q.id}-answered-span"%>>
+						<li><%= q.content %></li>
+						<p><%= q.response %></p>
+					</span>
+				<% end %>	
+			<% end %>	
+		<% end %>
+	</ul>
+</div>
 
 
 <%= link_to 'Show Participant Page', discussion_path(@discussion.id) %></br>
@@ -58,7 +78,11 @@
 <script>
 	var channel = dispatcher.subscribe('questions');
 	channel.bind('add_new_question', function(data) {
-	    $('ul.questions-list').append('<li>'+data['content']+'</li>');
+	    $('ul.questions-list').append('<span id="question' + data['id'] + '-response-span"><li>' + data['content'] + '</li><button class="respond-to-question-button">Respond</button><form accept-charset="UTF-8" action="/questions/' + data['id'] + '" data-remote="true" method="post" id: "response-question' + data['id'] + '" hidden><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name=​"_method" type=​"hidden" value=​"put">​</div><textarea rows="3" cols="25" name="question[response]"></textarea><input type="hidden" name="question[question_status]" value="answered"><input type="submit" value="Save Response"></form></span>');
+	    $('.respond-to-question-button').on('click', function(e) {
+			$(e.target).next('form').show();
+			$(e.target).hide();
+		});
 	});
 </script>
 

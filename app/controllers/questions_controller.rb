@@ -17,8 +17,20 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def update
+    @question = Question.find(params['id'])
+    if @question.update(question_params)
+      @message = 'Response saved successfully.'
+    else
+      @message = 'There was an error saving the response.'
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
   private
     def question_params
-      params.require(:question).permit(:content, :discussion_id)
+      params.require(:question).permit(:content, :discussion_id, :question_status, :response)
     end
 end

@@ -1,0 +1,9 @@
+<span id=<%="question#{q.id}-response-span"%>>
+	<li><%= q.content %></li>
+	<button class="respond-to-question-button">Respond</button>
+	<%= form_tag("/questions/#{q.id}", method: :put, remote: true, id: "response-question#{q.id}", hidden: true) do -%>
+			<textarea rows="3" cols="25" name="question[response]"></textarea>
+			<input type="hidden" name="question[question_status]" value="answered">
+			<input type="submit" value="Save Response">
+	<% end -%> 
+</span>
