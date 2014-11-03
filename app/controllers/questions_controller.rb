@@ -21,6 +21,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params['id'])
     if @question.update(question_params)
       @message = 'Response saved successfully.'
+      WebsocketRails[:questions].trigger(:respond_to_question, @question)
     else
       @message = 'There was an error saving the response.'
     end

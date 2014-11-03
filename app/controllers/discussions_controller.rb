@@ -32,7 +32,7 @@ class DiscussionsController < ApplicationController
     @discussion.leader_code, @discussion.participant_code = codes.first, codes.last
     if @discussion.save
       WebsocketRails[:new_discussion].trigger(:update_discussions_index, @discussion)
-      redirect_to discussion_path(@discussion.id)
+      redirect_to :action => "show_leader", :id => @discussion.id
     else
       flash[:error] = 'There was an error creating your discussion'
       redirect_to root_path

@@ -1,8 +1,14 @@
-<%= form_tag("/surveys/#{s.id}", method: :put, remote: true) do %>
+<%= form_tag("/surveys/#{s.id}", method: :put, remote: true, id: "survey#{s.id}") do %>
 	<% case status %>
 	<% when 'open'%>
 		<input type="hidden" name="survey[survey_status]" value="ended">
-		<input type="submit" value="End Survey">
+		<input type="submit" value="End Survey Now" class="submit-now">
+		<span hidden>
+			<label for="seconds">Number of Seconds:</label>
+			<input type="text" name="seconds">
+			</br>
+		</span>
+		<input type="button" value="Set Survey End Time" class="submit-later">
 	<% when 'closed'%>
 		<input type="hidden" name="survey[survey_status]" value="open">
 		<input type="submit" value="Send Survey">
