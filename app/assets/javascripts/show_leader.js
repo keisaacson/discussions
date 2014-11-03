@@ -18,7 +18,7 @@ $('.discussions.show_leader').ready(function(){
 		var $timerInput = $(this).prev();
 		$timerInput.show();
 		$timerInput.prev().hide();
-		$('.submit-later').on('click', function(e) {
+		$(this).on('click', function(e) {
 			var parentForm = $(this).parent();
 			var formId = $(parentForm).attr('id');
 			var numSeconds = $('input[name=seconds]').val();

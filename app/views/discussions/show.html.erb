@@ -56,21 +56,22 @@
 	});
 	channel.bind('timer', function(data) {
 		var totalSeconds = parseInt(data['seconds']);
+		$('div#' + data['id'] + ' p.timer').remove();
 		$('div#' + data['id']).append('<p class="timer">'+ totalSeconds +' seconds remaining</p>');
 		for (var i = totalSeconds; i > 0; i--) {
 			setTimeout(function(x) {
 				return function() { 
 					if (x < 10) {
-						$('p.timer').text('0:0' + String(x));
+						$('div#' + data['id'] + ' p.timer').text('0:0' + String(x));
 					} else if (x < 60) {
-						$('p.timer').text('0:' + String(x));
+						$('div#' + data['id'] + ' p.timer').text('0:' + String(x));
 					} else {
 						var minutes = Math.floor(x/60);
 						var seconds = x % 60;
 						if (seconds < 10) {
-							$('p.timer').text(String(minutes) + ':0' + String(seconds));
+							$('div#' + data['id'] + ' p.timer').text(String(minutes) + ':0' + String(seconds));
 						} else {
-						 $('p.timer').text(String(minutes) + ':' + String(seconds));
+						 $('div#' + data['id'] + ' p.timer').text(String(minutes) + ':' + String(seconds));
 						};
 					};
 				}; 
