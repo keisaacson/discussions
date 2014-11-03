@@ -78,7 +78,7 @@
 <script>
 	var channel = dispatcher.subscribe('questions');
 	channel.bind('add_new_question', function(data) {
-	    $('ul.questions-list').append('<span id="question' + data['id'] + '-response-span"><li>' + data['content'] + '</li><button class="respond-to-question-button">Respond</button><form accept-charset="UTF-8" action="/questions/' + data['id'] + '" data-remote="true" method="post" id: "response-question' + data['id'] + '" hidden><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name=​"_method" type=​"hidden" value=​"put">​</div><textarea rows="3" cols="25" name="question[response]"></textarea><input type="hidden" name="question[question_status]" value="answered"><input type="submit" value="Save Response"></form></span>');
+	    $('ul.questions-list').append('<span id="question' + data['id'] + '-response-span"><li>' + data['content'] + '</li><button class="respond-to-question-button">Respond</button><form accept-charset="UTF-8" action="/questions/' + data['id'] + '" data-remote="true" method="put" id="response-question' + data['id'] + '" hidden><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name=​"_method" type=​"hidden" value=​"put">​</div><textarea rows="3" cols="25" name="question[response]"></textarea><input type="hidden" name="question[question_status]" value="answered"><input type="submit" value="Save Response"></form></span>');
 	    $('.respond-to-question-button').on('click', function(e) {
 			$(e.target).next('form').show();
 			$(e.target).hide();
@@ -86,8 +86,7 @@
 	});
 </script>
 
-
-<!-- <section>
+<!--<input name=​"_method" type=​"hidden" value=​"put">​ <section>
 	<div id="accordion">
 		<% if @discussion.questions.length > 0 %>
 			<% @discussion.questions.each do |q| %>
@@ -109,4 +108,4 @@
 	  $('div#accordion').append('<h3>'+data['content']+'</h3><div><textarea rows="10" cols="50"></textarea></div>');
 	  $("#accordion").accordion({ active: false, collapsible: true });
 	});
-</script> -->
+ -->

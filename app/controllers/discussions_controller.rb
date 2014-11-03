@@ -2,11 +2,6 @@ require 'pry-byebug'
 
 class DiscussionsController < ApplicationController
 
-  # def initialize_session
-  #   # perform application setup here
-  #   controller_store[:message_count] = 0
-  # end
-
   def index
     @discussions = Discussion.all
   end
