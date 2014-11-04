@@ -1,16 +1,21 @@
-<h2><%= @discussion.title %> Participant Page</h2>
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Leader Page', "/discussions/#{@discussion.id}/leader" %></li>
+  <li class="active"><%= link_to 'Participant Page', discussion_path(@discussion.id) %></li>
+</ul>
 
-<p class="message-container"></p>
+<div class="row">
+	<div class="col col-xs-12">
+		<h2><%= @discussion.title %> Participant Page</h2>
+		<p class="message-container"></p>
+	</div>
+</div>
 
-<%= form_tag("/discussions/#{@discussion.id}/questions", method: :post, remote: true) do -%>
-	<div>
+<%= form_tag("/discussions/#{@discussion.id}/questions", method: :post, remote: true, role: "form", class: "form-inline") do -%>
 		<label for="question"> Question </label>
 		<input type="text" id="question" name="question[content]">
 
 		<input type="hidden" name="question[discussion_id]" value=<%="#{@discussion.id}"%>>
-	</br>
-		<input type="submit" value="Submit Question">
-	</div>
+		<input type="submit" value="Submit Question" class="btn btn-xs">
 <% end -%>
 
 <% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
@@ -38,9 +43,6 @@
 		<% end %>
 	</ul>
 </div>
-
-<%= link_to 'Show Leader Page', "/discussions/#{@discussion.id}/leader" %></br>
-<%= link_to 'All Discussions', discussions_path %>
 
 <script>
 	var channel = dispatcher.subscribe('surveys');

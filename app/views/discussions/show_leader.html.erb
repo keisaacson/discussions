@@ -1,79 +1,104 @@
-<h2><%= @discussion.title %> Leader Page</h2>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Leader Page', "/discussions/#{@discussion.id}/leader" %></li>
+  <li><%= link_to 'Participant Page', discussion_path(@discussion.id) %></li>
+</ul>
 
-<p>Leader Code: <%= @discussion.leader_code %></p>
-<p>Participant Code: <%= @discussion.participant_code %></p>
 
-<p class="message-container"></p>
-
-<%= form_tag("/discussions/#{@discussion.id}/surveys", method: :post, remote: true) do -%>
-	<div>
-		<label for="question"> Survey Question </label>
-		<input type="text" id="question" name="survey[survey_question]">
-
-		<input type="hidden" name="survey[discussion_id]" value=<%="#{@discussion.id}"%>>
-	</br>
-		<input type="submit" name="survey[survey_action]" value="Create Survey For Later">
-		<input type="submit" name="survey[survey_action]" value="Create &amp; Send Survey">
+<div class="row">
+	<div class="col col-xs-12">
+		<h2><%= @discussion.title %> Leader Page</h2>
+		<p class="message-container"> </p>
 	</div>
-<% end -%>
-
-<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
-
-<div class="surveys-container">
-	<p>Open Surveys</p>
-	<%= render('discussions/survey_list', {:surveys => surveys, :status => 'open'}) %>
-
-	<p>Closed Surveys</p>
-	<%= render('discussions/survey_list', {:surveys => surveys, :status => 'closed'}) %>
-
-	<p>Ended Surveys</p>
-	<%= render('discussions/survey_list', {:surveys => surveys, :status => 'ended'}) %>
 </div>
 
-<div class="survey-responses-container">
-	<p>Survey Responses</p>
-	<ul class="ended-survey-responses-list">
-		<% if surveys['ended'] %>
-			<% surveys['ended'].each do |s| %>
-				<%= render('survey_responses/responses_list', {:s => s}) %>
-			<% end %>
-		<% end %>
-	</ul>
-	<button class="hide-results-button" hidden>Hide Results</button>
+<div class="row">
+	<div class="col col-xs-12">
+		<div class="row">
+			<div class="col col-xs-12">
+				<%= render('discussions/new_survey_form', {:discussion => @discussion}) %>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col col-sm-6">
+				<div class="row">
+					<div class="col col-md-6">
+						<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
+						<h4>Open Surveys</h4>
+						<%= render('discussions/survey_list', {:surveys => surveys, :status => 'open'}) %>
+					</div>
+
+					<div class="col col-md-6">
+						<h4>Closed Surveys</h4>
+						<%= render('discussions/survey_list', {:surveys => surveys, :status => 'closed'}) %>
+					</div>
+				</div>
+			</div>
+
+			<div class="col col-sm-6">
+				<div class="row">
+					<div class="col col-md-6">
+						<h4>Ended Surveys</h4>
+						<%= render('discussions/survey_list', {:surveys => surveys, :status => 'ended'}) %>
+					</div>
+
+					<div class="col col-md-6">
+						<div class="survey-responses-container">
+							<h4>Survey Responses</h4>
+							<ul class="ended-survey-responses-list">
+								<% if surveys['ended'] %>
+									<% surveys['ended'].each do |s| %>
+										<%= render('survey_responses/responses_list', {:s => s}) %>
+									<% end %>
+								<% end %>
+							</ul>
+							<button class="hide-results-button btn btn-xs">Hide Results</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	
+		<div class="row">
+			<div class="col col-sm-6">
+				<div class="participant-questions-container">
+					<h4>New Participant Questions</h4>
+					<ul class="questions-list">
+						<% if @discussion.questions.length > 0 %>
+							<% @discussion.questions.each do |q| %>
+								<% if q.question_status == "unanswered" %>
+									<%= render('questions/question_response_form', {:q => q}) %>
+								<% end %>	
+							<% end %>	
+						<% end %>
+					</ul>
+				</div>
+			</div>
+
+			<div class="col col-sm-6">
+				<div class="answered-questions-container">
+					<h4>Old Participant Questions</h4>
+					<ul class="old-questions-list">
+						<% if @discussion.questions.length > 0 %>
+							<% @discussion.questions.each do |q| %>
+								<% if q.question_status == "answered" %>
+									<span id=<%="question#{q.id}-answered-span"%>>
+										<li><%= q.content %></li>
+										<p><%= q.response %></p>
+									</span>
+								<% end %>	
+							<% end %>	
+						<% end %>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 </div>
-
-<div class="participant-questions-container">
-	<p>New Participant Questions</p>
-	<ul class="questions-list">
-		<% if @discussion.questions.length > 0 %>
-			<% @discussion.questions.each do |q| %>
-				<% if q.question_status == "unanswered" %>
-					<%= render('questions/question_response_form', {:q => q}) %>
-				<% end %>	
-			<% end %>	
-		<% end %>
-	</ul>
-</div>
-
-<div class="answered-questions-container">
-	<p>Old Participant Questions</p>
-	<ul class="old-questions-list">
-		<% if @discussion.questions.length > 0 %>
-			<% @discussion.questions.each do |q| %>
-				<% if q.question_status == "answered" %>
-					<span id=<%="question#{q.id}-answered-span"%>>
-						<li><%= q.content %></li>
-						<p><%= q.response %></p>
-					</span>
-				<% end %>	
-			<% end %>	
-		<% end %>
-	</ul>
-</div>
-
-
-<%= link_to 'Show Participant Page', discussion_path(@discussion.id) %></br>
-<%= link_to 'All Discussions', discussions_path %>
 
 <script>
 	var channel = dispatcher.subscribe('questions');
@@ -117,7 +142,7 @@
 	<div id="accordion">
 		<% if @discussion.questions.length > 0 %>
 			<% @discussion.questions.each do |q| %>
-				<h3><%= q.content %></h3>
+				<h4><%= q.content %></h3>
 				<div>
 					<textarea rows="5" cols="30"></textarea>
 				</div>

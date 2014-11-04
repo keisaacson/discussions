@@ -11,7 +11,7 @@ class SurveysController < ApplicationController
       WebsocketRails[:surveys].trigger(:open_survey, @survey)
       @message = 'Survey created and sent successfully.'
     elsif @survey.save
-      @message = 'Survey created successfully for later.'
+      @message = 'Survey created successfully.'
     else
       @message = 'There was an error sending out the survey.'
       @error = true

@@ -2,17 +2,17 @@
 	<% case status %>
 	<% when 'open'%>
 		<input type="hidden" name="survey[survey_status]" value="ended">
-		<input type="submit" value="End Survey Now" class="submit-now">
+		<input type="submit" value="End Survey Now" class="submit-now btn btn-xs">
 		<span hidden>
 			<label for="seconds">Number of Seconds:</label>
 			<input type="text" name="seconds">
 			</br>
 		</span>
-		<input type="button" value="Set Survey End Time" class="submit-later">
+		<input type="button" value="Set Survey End Time" class="submit-later btn btn-xs">
 	<% when 'closed'%>
 		<input type="hidden" name="survey[survey_status]" value="open">
-		<input type="submit" value="Send Survey">
+		<input type="submit" value="Send Survey" class="btn btn-xs">
 	<% when 'ended'%>
-		<button type="button" class="view-results-button" id=<%="button-survey#{s.id}"%>>View Responses</button>
+		<button type="button" class="view-results-button btn btn-xs" id=<%="button-survey#{s.id}"%>>View Responses</button>
 	<% end %>
 <% end %>

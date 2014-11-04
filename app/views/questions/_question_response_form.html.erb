@@ -4,6 +4,6 @@
 	<%= form_tag("/questions/#{q.id}", method: :put, remote: true, id: "response-question#{q.id}", hidden: true) do -%>
 			<textarea rows="3" cols="25" name="question[response]"></textarea>
 			<input type="hidden" name="question[question_status]" value="answered">
-			<input type="submit" value="Save Response">
+			<input type="submit" value="Save Response" class="btn btn-xs">
 	<% end -%> 
 </span>

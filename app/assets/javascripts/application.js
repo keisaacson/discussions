@@ -15,8 +15,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery-ui/accordion
-//= require_tree .
 //= require websocket_rails/main
+//= require bootstrap-sprockets
+//= require_tree .
 
 var dispatcher = new WebSocketRails('localhost:3000/websocket');
 

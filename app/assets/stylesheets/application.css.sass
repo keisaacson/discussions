@@ -10,7 +10,22 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require jquery-ui/accordion
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap-sprockets"
+@import "bootstrap"
+
+.hide-results-button
+	display: none
+
+.col
+
+#main-container
+	max-width: 960px
+
+#main-navbar
+	max-width: 1080px
+	margin-left: auto
+	margin-right: auto

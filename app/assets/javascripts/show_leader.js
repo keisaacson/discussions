@@ -37,3 +37,5 @@ $('.discussions.show_leader').ready(function(){
 		});
 	});
 })
+
+// $("parent-that-is-always-there").on("click", "child-that-is-appended-later", function(){});
