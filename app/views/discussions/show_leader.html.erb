@@ -15,6 +15,7 @@
 	<div class="col col-xs-12">
 		<div class="row">
 			<div class="col col-xs-12">
+				<h4>Create New Survey</h4>
 				<%= render('surveys/new_survey_form', {:discussion => @discussion}) %>
 			</div>
 		</div>
@@ -99,42 +100,4 @@
 	</div>
 
 </div>
-
-<script>
-	var channel = dispatcher.subscribe('questions');
-	channel.bind('add_new_question', function(data) {
-	    $('ul.questions-list').append('<span id="question' + data['id'] + '-response-span"><li>' + data['content'] + '</li><button class="respond-to-question-button">Respond</button><form accept-charset="UTF-8" action="/questions/' + data['id'] + '" data-remote="true" method="put" id="response-question' + data['id'] + '" hidden><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name=​"_method" type=​"hidden" value=​"put">​</div><textarea rows="3" cols="25" name="question[response]"></textarea><input type="hidden" name="question[question_status]" value="answered"><input type="submit" value="Save Response"></form></span>');
-	    $('.respond-to-question-button').on('click', function(e) {
-			$(e.target).next('form').show();
-			$(e.target).hide();
-		});
-	});
-
-	var channel2 = dispatcher.subscribe('surveys');
-	channel2.bind('timer', function(data) {
-		var totalSeconds = parseInt(data['seconds']);
-		var numId = data['id'].match(/\d+/)[0];
-		$('li.open-item-' + numId + ' p.timer').remove();
-		$('li.open-item-' + numId).append('<p class="timer"></p>');
-		for (var i = totalSeconds; i > 0; i--) {
-			setTimeout(function(x) {
-				return function() { 
-					if (x < 10) {
-						$('li.open-item-' + numId + ' p.timer').text('0:0' + String(x));
-					} else if (x < 60) {
-						$('li.open-item-' + numId + ' p.timer').text('0:' + String(x));
-					} else {
-						var minutes = Math.floor(x/60);
-						var seconds = x % 60;
-						if (seconds < 10) {
-							$('li.open-item-' + numId + ' p.timer').text(String(minutes) + ':0' + String(seconds));
-						} else {
-						 $('li.open-item-' + numId + ' p.timer').text(String(minutes) + ':' + String(seconds));
-						};
-					};
-				}; 
-			}(i), 1000*(totalSeconds-i));
-		};
-	});
-</script>
 

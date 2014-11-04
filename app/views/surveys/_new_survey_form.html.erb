@@ -1,8 +1,10 @@
-<%= form_tag("/discussions/#{discussion.id}/surveys", method: :post, remote: true, role: "form", class: "form-inline") do -%>
+<%= form_tag("/discussions/#{discussion.id}/surveys", method: :post, remote: true, role: "form", class: "form-horizontal") do -%>
+	<div class="form-group">
 		<label for="question"> Survey Question </label>
 		<input type="text" id="question" name="survey[survey_question]">
 
 		<input type="hidden" name="survey[discussion_id]" value=<%="#{discussion.id}"%>>
 		<input type="submit" name="survey[survey_action]" value="Create Survey" class="btn btn-xs">
 		<input type="submit" name="survey[survey_action]" value="Create &amp; Send Survey" class="btn btn-xs">
+	</div>
 <% end -%>

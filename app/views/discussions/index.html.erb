@@ -11,7 +11,7 @@
 				<p class="empty-discussions">There are no discussions at this time.</p>
 			<% else %>
 				<% @discussions.each do |d| %>
-					<li><%= link_to "#{d.title}", discussion_path(d.id) %></li>
+					<li><h4><%= link_to "#{d.title}", discussion_path(d.id) %></h4></li>
 				<% end %>
 			<% end %>
 		</ul>
