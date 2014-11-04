@@ -1,16 +1,26 @@
-<h2>Open Discussions</h2>
+<div class="row">
+	<div class="col col-xs-12">
+	</div>
+</div>
 
-<ul class="discussions_list">
-	<% if @discussions.length == 0 %>
-		<p class="empty-discussions">There are no discussions at this time.</p>
-	<% else %>
-		<% @discussions.each do |d| %>
-			<li><%= link_to "#{d.title}", discussion_path(d.id) %></li>
-		<% end %>
-	<% end %>
-</ul>
+<div class="row">
+	<div class="col col-xs-12 col-sm-6">
+		<h3>Current Discussions</h3>
+		<ul class="discussions_list">
+			<% if @discussions.length == 0 %>
+				<p class="empty-discussions">There are no discussions at this time.</p>
+			<% else %>
+				<% @discussions.each do |d| %>
+					<li><%= link_to "#{d.title}", discussion_path(d.id) %></li>
+				<% end %>
+			<% end %>
+		</ul>
+	</div>
 
-<%= render('discussions/new_discussion_form') %>
+	<div class="col col-xs-12 col-sm-6">
+		<%= render('discussions/new_discussion_form') %>
+	</div>
+</div>
 
 <script>
 	var channel = dispatcher.subscribe('new_discussion');
