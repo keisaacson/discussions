@@ -9,42 +9,9 @@
 		$('li.closed-item-' + survey_id).remove();
 		$('li.open-item-' + survey_id).remove();
 		$('.' + survey_status + '-surveys-list').append(surveyListHtml + surveyFormHtml + "</li>");
-		$('.submit-later').on('click', function(e) {
-			var $timerInput = $(this).prev();
-			$timerInput.show();
-			$timerInput.prev().hide();
-			$(this).on('click', function(e) {
-				var parentForm = $(this).parent();
-				var formId = $(parentForm).attr('id');
-				var numSeconds = $('input[name=seconds]').val();
-				var form = {
-					id: formId,
-					seconds: numSeconds
-				};
-				var channel = dispatcher.subscribe('surveys');
-				setTimeout( function() {
-					channel.trigger('timer', form);
-				}, 500);
-				setTimeout( function() {
-					parentForm.submit();
-				}, parseInt(numSeconds) * 1000);
-				$(parentForm).hide();
-			});
-		});
 	<% end %>
 	<% if @survey.survey_status == 'ended' %>
 		var surveyResponseHtml = "<%= j render('survey_responses/responses_list', {:s => @survey}) %>";
 		$('.ended-survey-responses-list').append(surveyResponseHtml);
-		$('.view-results-button').on('click', function(e) {
-			var id = e.target.id;
-			var numId = id.match(/\d+/)[0];
-			$('.survey-responses-div').hide();
-			$('div#survey-responses-' + numId).show();
-			$('.hide-results-button').show();
-		});
-		$('.hide-results-button').on('click', function() {
-			$('.survey-responses-div').hide();
-			$('.hide-results-button').hide();
-		});
 	<% end %>
 })();

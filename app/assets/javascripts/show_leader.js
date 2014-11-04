@@ -1,12 +1,12 @@
 $('.discussions.show_leader').ready(function(){
-	$('.view-results-button').on('click', function(e) {
+	$('ul.ended-surveys-list').on('click', '.view-results-button', function(e) {
 		var id = e.target.id;
 		var numId = id.match(/\d+/)[0];
 		$('.survey-responses-div').hide();
 		$('div#survey-responses-' + numId).show();
 		$('.hide-results-button').show();
 	});
-	$('.hide-results-button').on('click', function() {
+	$('div.survey-responses-container').on('click', '.hide-results-button', function() {
 		$('.survey-responses-div').hide();
 		$('.hide-results-button').hide();
 	});
@@ -14,7 +14,7 @@ $('.discussions.show_leader').ready(function(){
 		$(e.target).next('form').show();
 		$(e.target).hide();
 	});
-	$('.submit-later').on('click', function(e) {
+	$('ul.open-surveys-list').on('click', '.submit-later', function(e) {
 		var $timerInput = $(this).prev();
 		$timerInput.show();
 		$timerInput.prev().hide();
@@ -74,4 +74,3 @@ $('.discussions.show_leader').ready(function(){
 	});
 })
 
-// $("parent-that-is-always-there").on("click", "child-that-is-appended-later", function(){});
