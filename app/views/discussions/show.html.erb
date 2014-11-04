@@ -5,43 +5,52 @@
 
 <div class="row">
 	<div class="col col-xs-12">
-		<h2><%= @discussion.title %> Participant Page</h2>
+		<h2><%= @discussion.title %></h2>
 		<p class="message-container"></p>
 	</div>
 </div>
 
-<%= form_tag("/discussions/#{@discussion.id}/questions", method: :post, remote: true, role: "form", class: "form-inline") do -%>
-		<label for="question"> Question </label>
-		<input type="text" id="question" name="question[content]">
+<div class="row">
+	<div class="col col-xs-12">
+		<div class="row">
+			<div class="col col-xs-12">
+				<%= render('questions/new_question_form', {:discussion => @discussion}) %>
+			</div>
+		</div>
 
-		<input type="hidden" name="question[discussion_id]" value=<%="#{@discussion.id}"%>>
-		<input type="submit" value="Submit Question" class="btn btn-xs">
-<% end -%>
+		<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
+		<% questions = @discussion.questions.group_by {|q| q.question_status} %>
 
-<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
-<% questions = @discussion.questions.group_by {|q| q.question_status} %>
+		<div class="row">
+			<div class="col col-sm-6">
+				<div class="surveys-container">
+					<h4>Open Surveys</h4>
+					<ul class="survey-list">
+						<% if surveys['open'] %>
+							<% surveys['open'].each do |survey| %>
+								<%= render('survey_responses/survey_response_form', {:survey_id => survey.id, :survey_question => survey.survey_question}) %>
+							<% end %>	
+						<% end %>
+					</ul>
+				</div>
+			</div>
 
-<div class="surveys-container">
-	<p>Open Surveys</p>
-	<ul class="survey-list">
-		<% if surveys['open'] %>
-			<% surveys['open'].each do |survey| %>
-				<%= render('discussions/survey_response_form', {:survey_id => survey.id, :survey_question => survey.survey_question}) %>
-			<% end %>	
-		<% end %>
-	</ul>
-</div>
+			<div class="col col-sm-6">
+				<div class="answered-questions-container">
+					<h4>Questions w/ Answers</h4>
+					<ul class="answered-questions-list">
+						<% if questions['answered'] %>
+							<% questions['answered'].each do |question| %>
+								<li><%= question.content %></li>
+								<p><%= question.response %></p>
+							<% end %>	
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-<div class="answered-questions-container">
-	<p>Questions w/ Answers</p>
-	<ul class="answered-questions-list">
-		<% if questions['answered'] %>
-			<% questions['answered'].each do |question| %>
-				<li><%= question.content %></li>
-				<p><%= question.response %></p>
-			<% end %>	
-		<% end %>
-	</ul>
+	</div>
 </div>
 
 <script>
@@ -49,7 +58,7 @@
 	channel.bind('open_survey', function(data) {
 	  var survey_question = data['survey_question'];
 	  var survey_id = data['id'];
-	  var surveyResponseHtml = '<div id="survey' + survey_id + '"><li>' + survey_question + '</li><form accept-charset="UTF-8" action="/surveys/' + survey_id + '/survey_responses" data-remote="true" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div><input type="text" id="survey' + survey_id + '-response" name="survey_response[content]"><input type="hidden" name="survey_response[survey_id]" value="' + survey_id + '""></br><input type="submit" value="Submit Response"></form></div>';
+	  var surveyResponseHtml = '<div id="survey' + survey_id + '"><li>' + survey_question + '</li><form accept-charset="UTF-8" action="/surveys/' + survey_id + '/survey_responses" data-remote="true" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div><input type="text" id="survey' + survey_id + '-response" name="survey_response[content]"><input type="hidden" name="survey_response[survey_id]" value="' + survey_id + '""></br><input type="submit" value="Submit Response" class="btn btn-xs"></form></div>';
 	  $('ul.survey-list').append(surveyResponseHtml);
 	});
 	channel.bind('end_survey', function(data) {

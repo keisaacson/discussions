@@ -6,7 +6,7 @@
 
 <div class="row">
 	<div class="col col-xs-12">
-		<h2><%= @discussion.title %> Leader Page</h2>
+		<h2><%= @discussion.title %></h2>
 		<p class="message-container"> </p>
 	</div>
 </div>
@@ -15,23 +15,23 @@
 	<div class="col col-xs-12">
 		<div class="row">
 			<div class="col col-xs-12">
-				<%= render('discussions/new_survey_form', {:discussion => @discussion}) %>
+				<%= render('surveys/new_survey_form', {:discussion => @discussion}) %>
 			</div>
-
 		</div>
 
+	<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
+		
 		<div class="row">
 			<div class="col col-sm-6">
 				<div class="row">
 					<div class="col col-md-6">
-						<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
 						<h4>Open Surveys</h4>
-						<%= render('discussions/survey_list', {:surveys => surveys, :status => 'open'}) %>
+						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'open'}) %>
 					</div>
 
 					<div class="col col-md-6">
 						<h4>Closed Surveys</h4>
-						<%= render('discussions/survey_list', {:surveys => surveys, :status => 'closed'}) %>
+						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'closed'}) %>
 					</div>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 				<div class="row">
 					<div class="col col-md-6">
 						<h4>Ended Surveys</h4>
-						<%= render('discussions/survey_list', {:surveys => surveys, :status => 'ended'}) %>
+						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'ended'}) %>
 					</div>
 
 					<div class="col col-md-6">
@@ -138,26 +138,3 @@
 	});
 </script>
 
-<!--<input name=​"_method" type=​"hidden" value=​"put">​ <section>
-	<div id="accordion">
-		<% if @discussion.questions.length > 0 %>
-			<% @discussion.questions.each do |q| %>
-				<h4><%= q.content %></h3>
-				<div>
-					<textarea rows="5" cols="30"></textarea>
-				</div>
-			<% end %>	
-		<% end %>
-	</div>
-</section>
-
-<script>
-	$(document).on('ready', function() {
-		$("#accordion").accordion({ active: false, collapsible: true });
-	});
-	var channel = dispatcher.subscribe('new_question');
-	channel.bind('add_new_question', function(data) {
-	  $('div#accordion').append('<h3>'+data['content']+'</h3><div><textarea rows="10" cols="50"></textarea></div>');
-	  $("#accordion").accordion({ active: false, collapsible: true });
-	});
- -->

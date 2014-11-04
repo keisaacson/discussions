@@ -1,0 +1,7 @@
+<%= form_tag("/discussions/#{discussion.id}/questions", method: :post, remote: true, role: "form", class: "form-inline") do -%>
+		<label for="question"> Question </label>
+		<input type="text" id="question" name="question[content]">
+
+		<input type="hidden" name="question[discussion_id]" value=<%="#{discussion.id}"%>>
+		<input type="submit" value="Submit Question" class="btn btn-xs">
+<% end -%>

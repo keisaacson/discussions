@@ -6,7 +6,7 @@
 		var survey_status = "<%= @survey.survey_status %>";
 		var survey_id = "<%= @survey.id %>";
 		var surveyListHtml = '<li class="' + survey_status + '-item-' + survey_id + '"><%= @survey.survey_question %>';
-		var surveyFormHtml = "<%= j render('discussions/survey_update_status', :s => @survey, :status => @survey.survey_status) %>";
+		var surveyFormHtml = "<%= j render('surveys/survey_update_status', :s => @survey, :status => @survey.survey_status) %>";
 		$('.' + survey_status + '-surveys-list').append(surveyListHtml + surveyFormHtml + "</li>");
 		$('.submit-later').on('click', function(e) {
 			var $timerInput = $(this).prev();
