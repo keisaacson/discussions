@@ -2,6 +2,6 @@
 		<label for="question"> Question </label>
 		<input type="text" id="question" name="question[content]">
 
-		<input type="hidden" name="question[discussion_id]" value=<%="#{discussion.id}"%>>
-		<input type="submit" value="Submit Question" class="btn btn-xs">
+		<input type="hidden" id="discussion_id" name="question[discussion_id]" value=<%="#{discussion.id}"%>>
+		<input type="submit" value="Submit Question" class="btn btn-xs" id="submit-question">
 <% end -%>
