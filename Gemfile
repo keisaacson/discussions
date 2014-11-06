@@ -14,6 +14,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-screenshot'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

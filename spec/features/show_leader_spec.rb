@@ -67,18 +67,6 @@ feature 'Leader Page' do
     expect(page).to have_button("View Responses")
   end
 
-  xscenario 'Setting a Survey End Time' do
-    visit "/discussions/#{@discussion.id}/leader"
-
-    survey = 'Test Survey'
-    seconds = 3
-
-    fill_in 'question', :with => survey
-    find(:xpath, "//input[@name='survey[discussion_id]']").set @discussion.id
-    click_on 'Create & Send Survey'
-    click_on 'Set Survey End Time'
-    
-  end
 end
 
 
