@@ -3,7 +3,6 @@ require 'spec_helper'
 feature 'Participant Page' do
   background do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
-    Discussion.create(:title => 'Another Discussion', :leader_email => 'test2@test.com')
   end
 
   scenario 'Viewing the Participant Page' do
