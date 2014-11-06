@@ -1,4 +1,4 @@
-$('.discussions.show_leader').ready(function(){
+$('.discussions.show').ready(function(){
 	var channel = dispatcher.subscribe('surveys');
 	channel.bind('open_survey', function(data) {
 	  var survey_question = data['survey_question'];

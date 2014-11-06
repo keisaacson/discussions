@@ -2,6 +2,6 @@
 	var surveyId = "<%= @survey_response.survey_id %>";
 	var message = "<%= @message %>";
 	$('p.message-container').text(message);
-	$('div#survey' + surveyId).remove();
+	$('div#survey' + surveyId).html('<p>Response submitted.</p>');
 	console.log(surveyId, message);
 })();

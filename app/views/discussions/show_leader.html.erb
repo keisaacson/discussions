@@ -23,39 +23,37 @@
 	<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
 		
 		<div class="row">
-			<div class="col col-sm-6">
+			<div class="col col-sm-12">
 				<div class="row">
-					<div class="col col-md-6">
+					<div class="col col-sm-6 box">
 						<h4>Open Surveys</h4>
 						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'open'}) %>
 					</div>
 
-					<div class="col col-md-6">
+					<div class="col col-sm-6 box">
 						<h4>Closed Surveys</h4>
 						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'closed'}) %>
 					</div>
 				</div>
 			</div>
 
-			<div class="col col-sm-6">
+			<div class="col col-sm-12">
 				<div class="row">
-					<div class="col col-md-6">
+					<div class="col col-sm-6 box">
 						<h4>Ended Surveys</h4>
 						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'ended'}) %>
 					</div>
 
-					<div class="col col-md-6">
-						<div class="survey-responses-container">
-							<h4>Survey Responses</h4>
-							<ul class="ended-survey-responses-list">
-								<% if surveys['ended'] %>
-									<% surveys['ended'].each do |s| %>
-										<%= render('survey_responses/responses_list', {:s => s}) %>
-									<% end %>
+					<div class="col col-sm-6 survey-responses-container box">
+						<h4>Survey Responses</h4>
+						<ul class="ended-survey-responses-list">
+							<% if surveys['ended'] %>
+								<% surveys['ended'].each do |s| %>
+									<%= render('survey_responses/responses_list', {:s => s}) %>
 								<% end %>
-							</ul>
-							<button class="hide-results-button btn btn-xs">Hide Results</button>
-						</div>
+							<% end %>
+						</ul>
+						<button class="hide-results-button btn btn-xs">Hide Results</button>
 					</div>
 				</div>
 			</div>
@@ -63,37 +61,33 @@
 		</div>
 	
 		<div class="row">
-			<div class="col col-sm-6">
-				<div class="participant-questions-container">
-					<h4>New Participant Questions</h4>
-					<ul class="questions-list">
-						<% if @discussion.questions.length > 0 %>
-							<% @discussion.questions.each do |q| %>
-								<% if q.question_status == "unanswered" %>
-									<%= render('questions/question_response_form', {:q => q}) %>
-								<% end %>	
+			<div class="col col-sm-6 participant-questions-container box">
+				<h4>New Participant Questions</h4>
+				<ul class="questions-list">
+					<% if @discussion.questions.length > 0 %>
+						<% @discussion.questions.each do |q| %>
+							<% if q.question_status == "unanswered" %>
+								<%= render('questions/question_response_form', {:q => q}) %>
 							<% end %>	
-						<% end %>
-					</ul>
-				</div>
+						<% end %>	
+					<% end %>
+				</ul>
 			</div>
 
-			<div class="col col-sm-6">
-				<div class="answered-questions-container">
-					<h4>Old Participant Questions</h4>
-					<ul class="old-questions-list">
-						<% if @discussion.questions.length > 0 %>
-							<% @discussion.questions.each do |q| %>
-								<% if q.question_status == "answered" %>
-									<span id=<%="question#{q.id}-answered-span"%>>
-										<li><%= q.content %></li>
-										<p><%= q.response %></p>
-									</span>
-								<% end %>	
+			<div class="col col-sm-6 answered-questions-container box">
+				<h4>Old Participant Questions</h4>
+				<ul class="old-questions-list">
+					<% if @discussion.questions.length > 0 %>
+						<% @discussion.questions.each do |q| %>
+							<% if q.question_status == "answered" %>
+								<span id=<%="question#{q.id}-answered-span"%>>
+									<li><%= q.content %></li>
+									<p><%= q.response %></p>
+								</span>
 							<% end %>	
-						<% end %>
-					</ul>
-				</div>
+						<% end %>	
+					<% end %>
+				</ul>
 			</div>
 
 		</div>

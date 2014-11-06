@@ -1,5 +1,5 @@
+<li><%= survey_question %></li>
 <div id=<%="survey#{survey_id}"%>>
-	<li><%= survey_question %></li>
 	<%= form_tag("/surveys/#{survey_id}/survey_responses", method: :post, remote: true) do -%>
 			<input type="text" id=<%="survey#{survey_id}-response"%> name="survey_response[content]">
 
