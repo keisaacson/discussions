@@ -19,8 +19,8 @@
 
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active show-surveys"><a href="#">Surveys</a></li>
+  <li role="presentation" class="show-questions"><a href="#">Questions & Answers</a></li>
   <li role="presentation" class="show-question-form"><a href="#">New Question</a></li>
-  <li role="presentation" class="show-questions"><a href="#">View Q&A</a></li>
 </ul>
 
 <div class="row">
@@ -47,7 +47,6 @@
 	$('ul.nav-tabs').on('click', 'li', function() {
 		$('ul.nav-tabs').children().removeClass("active");
 		var tab = $(this).attr('class');
-		var newHtml;
 		$('div#participant-content-container').children().hide();
 		$('p.message-container').empty();
 		switch (tab) {

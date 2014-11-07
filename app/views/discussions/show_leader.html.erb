@@ -1,3 +1,5 @@
+<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
+
 <nav id="main-navbar" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav">
@@ -12,86 +14,119 @@
 <div class="row">
 	<div class="col col-xs-12">
 		<h2><%= @discussion.title %></h2>
-		<p class="message-container"> </p>
 	</div>
 </div>
 
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active show-surveys"><a href="#">Current Surveys</a></li>
+  <li role="presentation" class="show-survey-form"><a href="#">Create a Survey</a></li>
+  <li role="presentation" class="show-survey-responses"><a href="#">Ended Surveys</a></li>
+  <li role="presentation" class="show-questions"><a href="#">Participant Q&A</a></li>
+</ul>
 
 <div class="row">
 	<div class="col col-xs-12">
-		<h4>Create New Survey</h4>
-		<%= render('surveys/new_survey_form', {:discussion => @discussion}) %>
-	</div>
-</div>
+		<p class="message-container"></p>
+		<div id="leader-content-container">
+			<div class="current-surveys-container">
+				<div class="row">
+					<div class="col col-sm-6 box">
+						<h4>Open Surveys</h4>
+						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'open'}) %>
+					</div>
 
-<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
-
-<div class="row">
-	<div class="col col-sm-12">
-		<div class="row">
-			<div class="col col-sm-6 box">
-				<h4>Open Surveys</h4>
-				<%= render('surveys/survey_list', {:surveys => surveys, :status => 'open'}) %>
+					<div class="col col-sm-6 box">
+						<h4>Closed Surveys</h4>
+						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'closed'}) %>
+					</div>
+				</div>
 			</div>
 
-			<div class="col col-sm-6 box">
-				<h4>Closed Surveys</h4>
-				<%= render('surveys/survey_list', {:surveys => surveys, :status => 'closed'}) %>
+			<div class="survey-form-container" hidden>
+				<h4>Create New Survey</h4>
+				<%= render('surveys/new_survey_form', {:discussion => @discussion}) %>
+			</div>
+
+			<div class="ended-surveys-container" hidden>
+				<div class="row">
+					<div class="col col-sm-6 box">
+						<h4>Ended Surveys</h4>
+						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'ended'}) %>
+					</div>
+
+					<div class="col col-sm-6 survey-responses-container box">
+						<h4>Survey Responses</h4>
+						<ul class="ended-survey-responses-list">
+							<% if surveys['ended'] %>
+								<% surveys['ended'].each do |s| %>
+									<%= render('survey_responses/responses_list', {:s => s}) %>
+								<% end %>
+							<% end %>
+						</ul>
+						<button class="hide-results-button btn btn-xs">Hide Results</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="questions-container" hidden>
+				<div class="row">
+					<div class="col col-sm-6 participant-questions-container box">
+						<h4>New Participant Questions</h4>
+						<ul class="questions-list">
+							<% if @discussion.questions.length > 0 %>
+								<% @discussion.questions.each do |q| %>
+									<% if q.question_status == "unanswered" %>
+										<%= render('questions/question_response_form', {:q => q}) %>
+									<% end %>	
+								<% end %>	
+							<% end %>
+						</ul>
+					</div>
+
+					<div class="col col-sm-6 answered-questions-container box">
+						<h4>Answered Participant Questions</h4>
+						<ul class="old-questions-list">
+							<% if @discussion.questions.length > 0 %>
+								<% @discussion.questions.each do |q| %>
+									<% if q.question_status == "answered" %>
+										<span id=<%="question#{q.id}-answered-span"%>>
+											<li><%= q.content %></li>
+											<p><%= q.response %></p>
+										</span>
+									<% end %>	
+								<% end %>	
+							<% end %>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<div class="col col-sm-12">
-		<div class="row">
-			<div class="col col-sm-6 box">
-				<h4>Ended Surveys</h4>
-				<%= render('surveys/survey_list', {:surveys => surveys, :status => 'ended'}) %>
-			</div>
-
-			<div class="col col-sm-6 survey-responses-container box">
-				<h4>Survey Responses</h4>
-				<ul class="ended-survey-responses-list">
-					<% if surveys['ended'] %>
-						<% surveys['ended'].each do |s| %>
-							<%= render('survey_responses/responses_list', {:s => s}) %>
-						<% end %>
-					<% end %>
-				</ul>
-				<button class="hide-results-button btn btn-xs">Hide Results</button>
-			</div>
-		</div>
-	</div>
-
 </div>
 
-<div class="row">
-	<div class="col col-sm-6 participant-questions-container box">
-		<h4>New Participant Questions</h4>
-		<ul class="questions-list">
-			<% if @discussion.questions.length > 0 %>
-				<% @discussion.questions.each do |q| %>
-					<% if q.question_status == "unanswered" %>
-						<%= render('questions/question_response_form', {:q => q}) %>
-					<% end %>	
-				<% end %>	
-			<% end %>
-		</ul>
-	</div>
-
-	<div class="col col-sm-6 answered-questions-container box">
-		<h4>Answered Participant Questions</h4>
-		<ul class="old-questions-list">
-			<% if @discussion.questions.length > 0 %>
-				<% @discussion.questions.each do |q| %>
-					<% if q.question_status == "answered" %>
-						<span id=<%="question#{q.id}-answered-span"%>>
-							<li><%= q.content %></li>
-							<p><%= q.response %></p>
-						</span>
-					<% end %>	
-				<% end %>	
-			<% end %>
-		</ul>
-	</div>
-</div>
+<script>
+	
+	$('ul.nav-tabs').on('click', 'li', function() {
+		$('ul.nav-tabs').children().removeClass("active");
+		var tab = $(this).attr('class');
+		$('div#leader-content-container').children().hide();
+		$('p.message-container').empty();
+		switch (tab) {
+			case 'show-survey-form':
+				$('div.survey-form-container').show();
+				break;
+			case 'show-survey-responses':
+				$('div.ended-surveys-container').show();
+				break;
+			case 'show-questions':
+				$('div.questions-container').show();
+				break;
+			default:
+				$('div.current-surveys-container').show()
+				break;
+		}
+		$(this).addClass("active");
+	})
+	
+</script>
 
