@@ -49,6 +49,7 @@
 		var tab = $(this).attr('class');
 		var newHtml;
 		$('div#participant-content-container').children().hide();
+		$('p.message-container').empty();
 		switch (tab) {
 			case 'show-question-form':
 				$('div.question-form-container').show();
