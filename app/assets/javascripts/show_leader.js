@@ -21,7 +21,7 @@ $('.discussions.show_leader').ready(function(){
 		$(this).on('click', function(e) {
 			var parentForm = $(this).parent();
 			var formId = $(parentForm).attr('id');
-			var numSeconds = $('input[name=seconds]').val();
+			var numSeconds = $('#' + formId + ' input[name=seconds]').val();
 			var form = {
 				id: formId,
 				seconds: numSeconds
@@ -39,6 +39,7 @@ $('.discussions.show_leader').ready(function(){
 
 	var channel = dispatcher.subscribe('questions');
 	channel.bind('add_new_question', function(data) {
+		console.dir(data);
 	    $('ul.questions-list').append('<span id="question' + data['id'] + '-response-span"><li>' + data['content'] + '</li><button class="respond-to-question-button btn btn-xs">Respond</button><form accept-charset="UTF-8" action="/questions/' + data['id'] + '" data-remote="true" method="put" id="response-question' + data['id'] + '" hidden><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name=​"_method" type=​"hidden" value=​"put">​</div><textarea rows="3" cols="25" name="question[response]"></textarea><input type="hidden" name="question[question_status]" value="answered"><input type="submit" value="Save Response" class="btn btn-xs"></form></span>');
 	    $('.respond-to-question-button').on('click', function(e) {
 			$(e.target).next('form').show();

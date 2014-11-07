@@ -1,7 +1,15 @@
-<ul class="nav nav-tabs" role="tablist">
-  <li><%= link_to 'Leader Page', "/discussions/#{@discussion.id}/leader" %></li>
-  <li class="active"><%= link_to 'Participant Page', discussion_path(@discussion.id) %></li>
-</ul>
+<nav id="main-navbar" class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+	    <div class="navbar-header">
+			<ul class="nav navbar-nav">
+				<li><%= link_to 'All Discussions', "/discussions" %></li>
+				<li><%= link_to 'Leader Page', "/discussions/#{@discussion.id}/leader" %></li>
+				<li class="active"><%= link_to 'Participant Page', discussion_path(@discussion.id) %></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
 
 <div class="row">
 	<div class="col col-xs-12">
@@ -37,7 +45,7 @@
 
 			<div class="col col-sm-6">
 				<div class="answered-questions-container">
-					<h4>Questions w/ Answers</h4>
+					<h4>Answers to Participant Questions</h4>
 					<ul class="answered-questions-list">
 						<% if questions['answered'] %>
 							<% questions['answered'].each do |question| %>
