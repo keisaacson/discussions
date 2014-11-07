@@ -1,10 +1,20 @@
-<li><%= survey_question %></li>
-<div id=<%="survey#{survey_id}"%>>
-	<%= form_tag("/surveys/#{survey_id}/survey_responses", method: :post, remote: true) do -%>
-			<input type="text" id=<%="survey#{survey_id}-response"%> name="survey_response[content]">
+<h4>Open Surveys</h4>
+<ul class="survey-list">
+	<% if surveys['open'] %>
+		<% surveys['open'].each do |survey| %>
+			<li><%= survey.survey_question %></li>
+			<div id=<%="survey#{survey.id}"%>>
+				<%= form_tag("/surveys/#{survey.id}/survey_responses", method: :post, remote: true) do -%>
+						<input type="text" id=<%="survey#{survey.id}-response"%> name="survey_response[content]">
 
-			<input type="hidden" name="survey_response[survey_id]" value=<%="#{survey_id}"%>>
-		</br>
-			<input type="submit" value="Submit Response" class="btn btn-xs">
-	<% end -%>
-</div>
+						<input type="hidden" name="survey_response[survey_id]" value=<%="#{survey.id}"%>>
+					</br>
+						<input type="submit" value="Submit Response" class="btn btn-xs">
+				<% end -%>
+			</div>
+		<% end %>	
+	<% else %>
+		<p id="no-surveys"><em>There are currently no open surveys.</em></p>
+	<% end %>
+</ul>
+

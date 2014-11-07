@@ -1,0 +1,9 @@
+<h4>Participant Questions with Answers</h4>
+<ul class="answered-questions-list">
+	<% if questions['answered'] %>
+		<% questions['answered'].each do |question| %>
+			<li><%= question.content %></li>
+			<p><strong>Answer: </strong><%= question.response %></p>
+		<% end %>	
+	<% end %>
+</ul>

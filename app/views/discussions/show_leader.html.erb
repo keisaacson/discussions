@@ -1,12 +1,10 @@
 <nav id="main-navbar" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
-	    <div class="navbar-header">
-			<ul class="nav navbar-nav">
-				<li><%= link_to 'All Discussions', "/discussions" %></li>
-				<li class="active"><%= link_to 'Leader Page', "/discussions/#{@discussion.id}/leader" %></li>
-				<li><%= link_to 'Participant Page', discussion_path(@discussion.id) %></li>
-			</ul>
-		</div>
+		<ul class="nav navbar-nav">
+			<li><%= link_to 'All Discussions', "/discussions" %></li>
+			<li class="active"><%= link_to 'Leader View', "/discussions/#{@discussion.id}/leader" %></li>
+			<li><%= link_to 'Participant View', discussion_path(@discussion.id) %></li>
+		</ul>
 	</div>
 </nav>
 

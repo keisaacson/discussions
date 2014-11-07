@@ -4,6 +4,7 @@ $('.discussions.show').ready(function(){
 	  var survey_question = data['survey_question'];
 	  var survey_id = data['id'];
 	  var surveyResponseHtml = '<div id="survey' + survey_id + '"><li>' + survey_question + '</li><form accept-charset="UTF-8" action="/surveys/' + survey_id + '/survey_responses" data-remote="true" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div><input type="text" id="survey' + survey_id + '-response" name="survey_response[content]"><input type="hidden" name="survey_response[survey_id]" value="' + survey_id + '""></br><input type="submit" value="Submit Response" class="btn btn-xs"></form></div>';
+	  $('p#no-surveys').remove();
 	  $('ul.survey-list').append(surveyResponseHtml);
 	});
 	channel.bind('end_survey', function(data) {

@@ -1,68 +1,68 @@
+<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
+<% questions = @discussion.questions.group_by {|q| q.question_status} %>
+
 <nav id="main-navbar" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
-	    <div class="navbar-header">
-			<ul class="nav navbar-nav">
-				<li><%= link_to 'All Discussions', "/discussions" %></li>
-				<li><%= link_to 'Leader Page', "/discussions/#{@discussion.id}/leader" %></li>
-				<li class="active"><%= link_to 'Participant Page', discussion_path(@discussion.id) %></li>
-			</ul>
-		</div>
+		<ul class="nav navbar-nav">
+			<li><%= link_to 'All Discussions', "/discussions" %></li>
+			<li><%= link_to 'Leader View', "/discussions/#{@discussion.id}/leader" %></li>
+			<li class="active"><%= link_to 'Participant View', discussion_path(@discussion.id) %></li>
+		</ul>
 	</div>
 </nav>
-
 
 <div class="row">
 	<div class="col col-xs-12">
 		<h2><%= @discussion.title %></h2>
-		<p class="message-container"></p>
 	</div>
 </div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active show-surveys"><a href="#">Surveys</a></li>
+  <li role="presentation" class="show-question-form"><a href="#">New Question</a></li>
+  <li role="presentation" class="show-questions"><a href="#">View Q&A</a></li>
+</ul>
 
 <div class="row">
 	<div class="col col-xs-12">
-		<div class="row">
-			<div class="col col-xs-12">
+		<p class="message-container"></p>
+		<div id="participant-content-container">
+			<div class="surveys-container">
+				<%= render('survey_responses/survey_response_form', {:surveys => surveys}) %>
+			</div>
+
+			<div class="question-form-container" hidden>
 				<%= render('questions/new_question_form', {:discussion => @discussion}) %>
 			</div>
-		</div>
 
-		<% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
-		<% questions = @discussion.questions.group_by {|q| q.question_status} %>
-
-		<div class="row">
-			<div class="col col-sm-6">
-				<div class="surveys-container">
-					<h4>Open Surveys</h4>
-					<ul class="survey-list">
-						<% if surveys['open'] %>
-							<% surveys['open'].each do |survey| %>
-								<%= render('survey_responses/survey_response_form', {:survey_id => survey.id, :survey_question => survey.survey_question}) %>
-							<% end %>	
-						<% end %>
-					</ul>
-				</div>
-			</div>
-
-			<div class="col col-sm-6">
-				<div class="answered-questions-container">
-					<h4>Answers to Participant Questions</h4>
-					<ul class="answered-questions-list">
-						<% if questions['answered'] %>
-							<% questions['answered'].each do |question| %>
-								<li><%= question.content %></li>
-								<p><%= question.response %></p>
-							<% end %>	
-						<% end %>
-					</ul>
-				</div>
+			<div class="answered-questions-container" hidden>
+				<%= render('questions/view_answered_questions', {:questions => questions}) %>
 			</div>
 		</div>
 	</div>
 </div>
 
-
-
-
-
+<script>
+	
+	$('ul.nav-tabs').on('click', 'li', function() {
+		$('ul.nav-tabs').children().removeClass("active");
+		var tab = $(this).attr('class');
+		var newHtml;
+		$('div#participant-content-container').children().hide();
+		switch (tab) {
+			case 'show-question-form':
+				$('div.question-form-container').show();
+				break;
+			case 'show-questions':
+				$('div.answered-questions-container').show();
+				break;
+			default:
+				$('div.surveys-container').show();
+				break;
+		}
+		$(this).addClass("active");
+	})
+	
+</script>
 
 
