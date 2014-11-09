@@ -5,7 +5,7 @@ feature 'Leader Page' do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
   end
 
-  scenario 'Viewing the Leader Page' do
+  xscenario 'Viewing the Leader Page' do
     visit discussions_path
     click_link 'Test Discussion'
     click_link 'Leader Page'
@@ -13,7 +13,7 @@ feature 'Leader Page' do
     expect(current_path).to eq "/discussions/#{@discussion.id}/leader"
   end
 
-  scenario 'Creating a Closed Survey' do
+  xscenario 'Creating a Closed Survey' do
     visit "/discussions/#{@discussion.id}/leader"
 
     survey = 'Test Survey'
@@ -26,7 +26,7 @@ feature 'Leader Page' do
     expect(page).to have_selector("input[type=submit][value='Send Survey']")
   end
 
-  scenario 'Sending a Closed Survey' do
+  xscenario 'Sending a Closed Survey' do
     visit "/discussions/#{@discussion.id}/leader"
 
     survey = 'Test Survey'
@@ -40,7 +40,7 @@ feature 'Leader Page' do
     expect(page).to have_selector("input[type=submit][value='End Survey Now']")
   end
 
-  scenario 'Creating and Sending a Survey' do
+  xscenario 'Creating and Sending a Survey' do
     visit "/discussions/#{@discussion.id}/leader"
 
     survey = 'Test Survey'
@@ -53,7 +53,7 @@ feature 'Leader Page' do
     expect(page).to have_selector("input[type=submit][value='End Survey Now']")
   end
 
-  scenario 'Ending a Survey Now' do
+  xscenario 'Ending a Survey Now' do
     visit "/discussions/#{@discussion.id}/leader"
 
     survey = 'Test Survey'

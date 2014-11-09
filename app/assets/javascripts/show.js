@@ -1,4 +1,23 @@
 $('.discussions.show').ready(function(){
+	$('ul.nav-tabs').on('click', 'li', function() {
+		$('ul.nav-tabs').children().removeClass("active");
+		var tab = $(this).attr('class');
+		$('div#participant-content-container').children().hide();
+		$('p.message-container').empty();
+		switch (tab) {
+			case 'show-question-form':
+				$('div.question-form-container').show();
+				break;
+			case 'show-questions':
+				$('div.answered-questions-container').show();
+				break;
+			default:
+				$('div.surveys-container').show();
+				break;
+		}
+		$(this).addClass("active");
+	});
+	
 	var channel = dispatcher.subscribe('surveys');
 	channel.bind('open_survey', function(data) {
 	  var survey_question = data['survey_question'];

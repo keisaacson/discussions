@@ -3,6 +3,7 @@
 <nav id="main-navbar" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav">
+			<li class="navbar-brand">DiaLoggr</li>
 			<li><%= link_to 'All Discussions', "/discussions" %></li>
 			<li class="active"><%= link_to 'Leader View', "/discussions/#{@discussion.id}/leader" %></li>
 			<li><%= link_to 'Participant View', discussion_path(@discussion.id) %></li>
@@ -36,14 +37,13 @@
 					</div>
 
 					<div class="col col-sm-6 box">
-						<h4>Closed Surveys</h4>
+						<h4>Ready to Send Surveys </h4>
 						<%= render('surveys/survey_list', {:surveys => surveys, :status => 'closed'}) %>
 					</div>
 				</div>
 			</div>
 
 			<div class="survey-form-container" hidden>
-				<h4>Create New Survey</h4>
 				<%= render('surveys/new_survey_form', {:discussion => @discussion}) %>
 			</div>
 
@@ -55,15 +55,18 @@
 					</div>
 
 					<div class="col col-sm-6 survey-responses-container box">
-						<h4>Survey Responses</h4>
+						<br>
 						<ul class="ended-survey-responses-list">
 							<% if surveys['ended'] %>
+								<p id="survey-responses-0" hidden><strong> Survey Responses: </strong></p>
 								<% surveys['ended'].each do |s| %>
 									<%= render('survey_responses/responses_list', {:s => s}) %>
 								<% end %>
 							<% end %>
 						</ul>
-						<button class="hide-results-button btn btn-xs">Hide Results</button>
+						<ul>
+							<button class="hide-results-button btn btn-xs btn-default">Hide Results</button>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -103,30 +106,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-	
-	$('ul.nav-tabs').on('click', 'li', function() {
-		$('ul.nav-tabs').children().removeClass("active");
-		var tab = $(this).attr('class');
-		$('div#leader-content-container').children().hide();
-		$('p.message-container').empty();
-		switch (tab) {
-			case 'show-survey-form':
-				$('div.survey-form-container').show();
-				break;
-			case 'show-survey-responses':
-				$('div.ended-surveys-container').show();
-				break;
-			case 'show-questions':
-				$('div.questions-container').show();
-				break;
-			default:
-				$('div.current-surveys-container').show()
-				break;
-		}
-		$(this).addClass("active");
-	})
-	
-</script>
-

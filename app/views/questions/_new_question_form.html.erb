@@ -1,7 +1,7 @@
 <%= form_tag("/discussions/#{discussion.id}/questions", method: :post, remote: true, role: "form") do -%>
 	<div class="form-group">
 		<label for="question"> <h4> Ask the Discussion Leader a Question: </h4></label>
-		<textarea type="text" id="question" name="question[content]"class="form-control" rows="5"></textarea>
+		<textarea type="text" id="question" name="question[content]" class="form-control" rows="5"></textarea>
 	</div>
 		<input type="hidden" id="discussion_id" name="question[discussion_id]" value=<%="#{discussion.id}"%>>
 		<input type="submit" value="Submit Question" class="btn btn-xs btn-primary" id="submit-question">

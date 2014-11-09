@@ -1,7 +1,7 @@
 (function() {
 	var message = "<%= @message %>";
 	$('p.message-container').text(message);
-	$('input#question').val('');
+	$('textarea#question').val('');
 	<% if @error.nil? %>
 		var survey_status = "<%= @survey.survey_status %>";
 		var survey_id = "<%= @survey.id %>";
