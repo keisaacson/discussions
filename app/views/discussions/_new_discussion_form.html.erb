@@ -4,9 +4,17 @@
 		<label for="title">Discussion Title </label>
 		<input type="text" id="title" name="discussion[title]" class="form-control">
 	</div>
-	<div class="form-group">
+	<!-- <div class="form-group">
 		<label for="email">Leader Email </label>
 		<input type="text" id="email" name="discussion[leader_email]" class="form-control">
+	</div> -->
+	<div class="form-group">
+		<label for="leader_code">Leader Code </label>
+		<input type="text" id="leader_code" name="discussion[leader_code]" class="form-control">
 	</div>
-	<input type="submit" value="Create Discussion" class="btn btn-xs">
+	<div class="form-group">
+		<label for="participant_code">Participant Code </label>
+		<input type="text" id="participant_code" name="discussion[participant_code]" class="form-control">
+	</div>
+	<input type="submit" value="Create Discussion" class="btn btn-xs btn-primary">
 <% end -%>
