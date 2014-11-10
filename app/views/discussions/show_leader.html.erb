@@ -88,7 +88,7 @@
 									<% if q.question_status == "answered" %>
 										<span id=<%="question#{q.id}-answered-span"%>>
 											<li><%= q.content %></li>
-											<p><%= q.response %></p>
+											<p><em><%= q.response %></em></p>
 										</span>
 									<% end %>	
 								<% end %>	
