@@ -4,13 +4,13 @@ feature 'Creating a Survey' do
   background do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
     visit "/discussions/#{@discussion.id}/leader"
-    click_link 'Create a Survey'
+    click_link 'Create Survey'
     @survey = 'Test Survey'
     find(:xpath, "//textarea[@id='question']").set @survey
   end
 
   scenario 'Creating a Survey for Later', :js => true do
-    click_on 'Create Survey'
+    find(:xpath, "//input[@value='Create Survey']").click
 
     expect(page).to have_content 'Survey created successfully.'
 

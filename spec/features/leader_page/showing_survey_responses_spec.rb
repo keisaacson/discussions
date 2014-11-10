@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Updating Current Surveys' do
+feature 'Showing Survey Responses' do
   background do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
     @survey = Survey.create(:survey_question => 'Test Survey', :discussion_id => @discussion.id, :survey_status => 'ended')

@@ -17,7 +17,7 @@ feature 'Viewing Leader Page' do
 
   scenario 'Create a Survey View', :js => true do
     visit "/discussions/#{@discussion.id}/leader"
-    click_link 'Create a Survey'
+    click_link 'Create Survey'
 
     expect(page).to have_content 'Create a New Survey Question:'
     expect(page).to have_xpath("//textarea[@id='question']")
@@ -33,12 +33,19 @@ feature 'Viewing Leader Page' do
     expect(page).to have_content 'There are currently no ended surveys.'
   end
 
-  scenario 'Participant Q&A View', :js => true do
+  scenario 'New Questions View', :js => true do
     visit "/discussions/#{@discussion.id}/leader"
-    click_link 'Participant Q&A'
+    click_link 'New Questions'
 
+    expect(page).to have_content 'New Participant Questions'
     expect(page).to have_content 'There are currently no new participant questions.'
-    expect(page).to have_content 'There are currently no participant questions that have been answered.'
   end
 
+  scenario 'Answered Questions View', :js => true do
+    visit "/discussions/#{@discussion.id}/leader"
+    click_link 'Answered Questions'
+
+    expect(page).to have_content 'Answered Participant Questions'
+    expect(page).to have_content 'There are currently no participant questions that have been answered.'
+  end
 end

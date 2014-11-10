@@ -33,8 +33,7 @@ $('.discussions.show_leader').ready(function(){
 	emptyLists();
 
 	$(document).ajaxSuccess(function() {
-		emptyLists();
-		$('p.message-container').empty();
+		emptyLists();	
 	});
 
 	$('ul.ended-surveys-list').on('click', '.view-results-button', function(e) {
@@ -104,7 +103,7 @@ $('.discussions.show_leader').ready(function(){
 	var channel = dispatcher.subscribe('questions');
 	channel.bind('add_new_question', function(data) {
 		console.dir(data);
-	    $('ul.questions-list').append('<span id="question' + data['id'] + '-response-span"><li>' + data['content'] + '</li><button class="respond-to-question-button btn btn-xs btn-default">Respond</button><form accept-charset="UTF-8" action="/questions/' + data['id'] + '" data-remote="true" method="put" id="response-question' + data['id'] + '" role="form" hidden><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name=​"_method" type=​"hidden" value=​"put">​</div><div class="form-group"><input type="hidden" name="question[question_status]" value="answered"><textarea name="question[response]" class="form-control" rows="3"></textarea></div><input type="submit" value="Save Response" class="btn btn-xs btn-default"></form></span>');
+	    $('ul.questions-list').append('<span id="question' + data['id'] + '-response-span"><li>' + data['content'] + '</li><button class="respond-to-question-button btn btn-xs btn-default">Respond</button><form accept-charset="UTF-8" action="/questions/' + data['id'] + '" data-remote="true" method="put" id="response-question' + data['id'] + '" role="form" hidden><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name=​"_method" type=​"hidden" value=​"put">​</div><div class="form-group"><input type="hidden" name="question[question_status]" value="answered"><textarea name="question[response]" class="form-control" rows="3"></textarea></div><input type="submit" value="Save Response" class="btn btn-xs btn-primary"></form></span>');
 	    $('.respond-to-question-button').on('click', function(e) {
 			$(e.target).next('form').show();
 			$(e.target).hide();
