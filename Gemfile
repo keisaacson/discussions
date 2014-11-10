@@ -10,11 +10,15 @@ gem 'autoprefixer-rails'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.14.0"
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
+  gem "chromedriver-helper", "0.0.6"
+  gem 'launchy'
+  gem 'database_cleaner'
 end
 
 group :test do
-  gem 'capybara'
-  gem 'capybara-screenshot'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

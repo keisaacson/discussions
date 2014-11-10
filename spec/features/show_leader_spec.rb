@@ -5,63 +5,71 @@ feature 'Leader Page' do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
   end
 
-  xscenario 'Viewing the Leader Page' do
+  scenario 'Viewing the Leader Page' do
     visit discussions_path
     click_link 'Test Discussion'
-    click_link 'Leader Page'
+    click_link 'Leader View'
 
     expect(current_path).to eq "/discussions/#{@discussion.id}/leader"
   end
 
-  xscenario 'Creating a Closed Survey' do
+  scenario 'Creating a Closed Survey', :js => true do
     visit "/discussions/#{@discussion.id}/leader"
+    click_on 'Create a Survey'
 
     survey = 'Test Survey'
 
     fill_in 'question', :with => survey
-    find(:xpath, "//input[@name='survey[discussion_id]']").set @discussion.id
     click_on 'Create Survey'
 
-    expect(page).to have_content survey
-    expect(page).to have_selector("input[type=submit][value='Send Survey']")
+    expect(page).to have_content 'Survey created successfully.'
+    # expect(page).to have_selector("input[type=submit][value='Send Survey']")
   end
 
-  xscenario 'Sending a Closed Survey' do
+  scenario 'Sending a Closed Survey', :js => true do
     visit "/discussions/#{@discussion.id}/leader"
+    click_on 'Create a Survey'
 
     survey = 'Test Survey'
 
     fill_in 'question', :with => survey
-    find(:xpath, "//input[@name='survey[discussion_id]']").set @discussion.id
     click_on 'Create Survey'
+
+    click_on 'Current Surveys'
     click_on 'Send Survey'
 
     expect(page).to have_content survey
     expect(page).to have_selector("input[type=submit][value='End Survey Now']")
   end
 
-  xscenario 'Creating and Sending a Survey' do
+  scenario 'Creating and Sending a Survey', :js => true do
     visit "/discussions/#{@discussion.id}/leader"
+    click_on 'Create a Survey'
 
     survey = 'Test Survey'
 
     fill_in 'question', :with => survey
-    find(:xpath, "//input[@name='survey[discussion_id]']").set @discussion.id
     click_on 'Create & Send Survey'
+
+    click_on 'Current Surveys'
 
     expect(page).to have_content survey
     expect(page).to have_selector("input[type=submit][value='End Survey Now']")
   end
 
-  xscenario 'Ending a Survey Now' do
+  scenario 'Ending a Survey Now', :js => true do
     visit "/discussions/#{@discussion.id}/leader"
+    click_on 'Create a Survey'
 
     survey = 'Test Survey'
 
     fill_in 'question', :with => survey
-    find(:xpath, "//input[@name='survey[discussion_id]']").set @discussion.id
     click_on 'Create & Send Survey'
+
+    click_on 'Current Surveys'
     click_on 'End Survey Now'
+
+    click_on 'Ended Surveys'
 
     expect(page).to have_content survey
     expect(page).to have_button("View Responses")
