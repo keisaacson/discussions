@@ -110,16 +110,16 @@ $('.discussions.show_leader').ready(function(){
 			setTimeout(function(x) {
 				return function() { 
 					if (x < 10) {
-						$('li.open-item-' + numId + ' p.timer').text('0:0' + String(x));
+						$('li.open-item-' + numId + ' p.timer').text('0:0' + String(x) + ' until survey closes');
 					} else if (x < 60) {
-						$('li.open-item-' + numId + ' p.timer').text('0:' + String(x));
+						$('li.open-item-' + numId + ' p.timer').text('0:' + String(x) + ' until survey closes');
 					} else {
 						var minutes = Math.floor(x/60);
 						var seconds = x % 60;
 						if (seconds < 10) {
-							$('li.open-item-' + numId + ' p.timer').text(String(minutes) + ':0' + String(seconds));
+							$('li.open-item-' + numId + ' p.timer').text(String(minutes) + ':0' + String(seconds) + ' until survey closes');
 						} else {
-						 $('li.open-item-' + numId + ' p.timer').text(String(minutes) + ':' + String(seconds));
+						 $('li.open-item-' + numId + ' p.timer').text(String(minutes) + ':' + String(seconds) + ' until survey closes');
 						};
 					};
 				}; 
