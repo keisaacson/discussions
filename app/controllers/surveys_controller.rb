@@ -19,7 +19,6 @@ class SurveysController < ApplicationController
 
     respond_to do |format|
       format.js { render :layout => false }
-      format.html { redirect_to "/discussions/#{@survey.discussion_id}/leader" }
     end
   end
 
@@ -39,7 +38,6 @@ class SurveysController < ApplicationController
 
     respond_to do |format|
       format.js { render :layout => false }
-      format.html { redirect_to "/discussions/#{@survey.discussion_id}/leader" }
     end
   end
 

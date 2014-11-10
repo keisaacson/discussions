@@ -14,7 +14,6 @@ class QuestionsController < ApplicationController
     end
     respond_to do |format|
       format.js { render :layout => false }
-      format.html { redirect_to discussion_path(@question.discussion_id) }
     end
   end
 
