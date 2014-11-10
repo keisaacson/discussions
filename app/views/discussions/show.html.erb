@@ -1,16 +1,11 @@
 <% surveys = @discussion.surveys.group_by {|s| s.survey_status} %>
 <% questions = @discussion.questions.group_by {|q| q.question_status} %>
 
-<nav id="main-navbar" class="navbar navbar-default" role="navigation">
-	<div class="container-fluid">
-		<ul class="nav navbar-nav">
-			<li class="navbar-brand">DiaLoggr</li>
-			<li><%= link_to 'All Discussions', "/discussions" %></li>
-			<li><%= link_to 'Leader View', "/discussions/#{@discussion.id}/leader" %></li>
-			<li class="active"><%= link_to 'Participant View', discussion_path(@discussion.id) %></li>
-		</ul>
-	</div>
-</nav>
+<% content_for :navigation do %>
+	<li><%= link_to 'All Discussions', "/discussions" %></li>
+	<li><%= link_to 'Leader View', "/discussions/#{@discussion.id}/leader" %></li>
+	<li class="active"><%= link_to 'Participant View', discussion_path(@discussion.id) %></li>
+<% end %>
 
 <div class="row">
 	<div class="col col-xs-12">

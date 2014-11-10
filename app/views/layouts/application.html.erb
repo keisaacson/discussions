@@ -8,6 +8,17 @@
 </head>
 <body class="<%= controller_name %> <%= action_name %>">
 
+	<nav id="main-navbar" class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/discussions">DiaLoggr</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<%= yield :navigation %>
+			</ul>
+		</div>
+	</nav>
+
 	<div id="main-container" class="container">
 		<%= yield %>
 	</div>

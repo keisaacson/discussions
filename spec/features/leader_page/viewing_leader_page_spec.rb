@@ -15,4 +15,14 @@ feature 'Viewing Leader Page' do
     expect(page).to have_content 'There are currently no surveys ready to be sent.'
   end
 
+  scenario 'Create a Survey View', :js => true do
+    visit "/discussions/#{@discussion.id}/leader"
+    click_link 'Create a Survey'
+
+    expect(page).to have_content 'Create a New Survey Question:'
+    expect(page).to have_xpath("//textarea[@id='question']")
+    expect(page).to have_selector("input[type=submit][value='Create Survey']")
+    expect(page).to have_selector("input[type=submit][value='Create & Send Survey']")
+  end
+
 end
