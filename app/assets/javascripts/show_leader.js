@@ -1,4 +1,23 @@
 $('.discussions.show_leader').ready(function(){
+	var emptyList = function() {	
+		$('p.no-open').remove();
+		$('p.no-closed').remove();
+		var openItems = $('ul.open-surveys-list li');
+		var closedItems = $('ul.closed-surveys-list li');
+		if (openItems.length === 0) {
+			$('ul.open-surveys-list').append('<p class="no-open"><em>There are currently no open surveys.</em></p>');
+		};
+		if (closedItems.length === 0) {
+			$('ul.closed-surveys-list').append('<p class="no-closed"><em>There are currently no surveys ready to be sent.</em></p>');
+		};
+	};
+
+	emptyList();
+
+	$(document).ajaxSuccess(function() {
+		emptyList()
+	});
+
 	$('ul.ended-surveys-list').on('click', '.view-results-button', function(e) {
 		var id = e.target.id;
 		var numId = id.match(/\d+/)[0];
