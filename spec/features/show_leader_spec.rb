@@ -15,7 +15,7 @@ feature 'Leader Page' do
     click_on 'Create Survey'
 
     expect(page).to have_content 'Survey created successfully.'
-    # expect(page).to have_selector("input[type=submit][value='Send Survey']")
+    expect(page).to have_selector("input[type=submit][value='Send Survey']")
   end
 
   scenario 'Sending a Closed Survey', :js => true do
