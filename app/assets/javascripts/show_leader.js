@@ -33,7 +33,8 @@ $('.discussions.show_leader').ready(function(){
 	emptyLists();
 
 	$(document).ajaxSuccess(function() {
-		emptyLists()
+		emptyLists();
+		$('p.message-container').empty();
 	});
 
 	$('ul.ended-surveys-list').on('click', '.view-results-button', function(e) {
@@ -89,6 +90,9 @@ $('.discussions.show_leader').ready(function(){
 				break;
 			case 'show-questions':
 				$('div.questions-container').show();
+				break;
+			case 'show-answers':
+				$('div.answered-questions-container').show();
 				break;
 			default:
 				$('div.current-surveys-container').show()

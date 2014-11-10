@@ -11,17 +11,20 @@
 		<h2><%= @discussion.title %></h2>
 	</div>
 </div>
+</br>
 
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active show-surveys"><a href="#">Current Surveys</a></li>
-  <li role="presentation" class="show-survey-form"><a href="#">Create a Survey</a></li>
+  <li role="presentation" class="show-survey-form"><a href="#">Create Survey</a></li>
   <li role="presentation" class="show-survey-responses"><a href="#">Ended Surveys</a></li>
-  <li role="presentation" class="show-questions"><a href="#">Participant Q&A</a></li>
+  <li role="presentation" class="show-questions"><a href="#">New Questions</a></li>
+  <li role="presentation" class="show-answers"><a href="#">Answered Questions</a></li>
 </ul>
 
+</br>
 <div class="row">
 	<div class="col col-xs-12">
-		<p class="message-container"></p>
+		<em><p class="message-container"></p></em>
 		<div id="leader-content-container">
 			<div class="current-surveys-container">
 				<div class="row">
@@ -67,7 +70,7 @@
 
 			<div class="questions-container" hidden>
 				<div class="row">
-					<div class="col col-sm-6 participant-questions-container box">
+					<div class="col col-xs-12 participant-questions-container box">
 						<h4>New Participant Questions</h4>
 						<ul class="questions-list">
 							<% if @discussion.questions.length > 0 %>
@@ -79,8 +82,12 @@
 							<% end %>
 						</ul>
 					</div>
+				</div>
+			</div>
 
-					<div class="col col-sm-6 answered-questions-container box">
+			<div class="answered-questions-container" hidden>
+				<div class="row">
+					<div class="col col-xs-12 box">
 						<h4>Answered Participant Questions</h4>
 						<ul class="old-questions-list">
 							<% if @discussion.questions.length > 0 %>

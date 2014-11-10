@@ -12,6 +12,7 @@
 		<h2><%= @discussion.title %></h2>
 	</div>
 </div>
+</br>
 
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active show-surveys"><a href="#">Surveys</a></li>
@@ -19,9 +20,10 @@
   <li role="presentation" class="show-question-form"><a href="#">New Question</a></li>
 </ul>
 
+</br>
 <div class="row">
 	<div class="col col-xs-12">
-		<p class="message-container"></p>
+		<em><p class="message-container"></p></em>
 		<div id="participant-content-container">
 			<div class="surveys-container">
 				<%= render('survey_responses/survey_response_form', {:surveys => surveys}) %>
