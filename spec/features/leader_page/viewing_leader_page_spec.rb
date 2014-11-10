@@ -33,6 +33,12 @@ feature 'Viewing Leader Page' do
     expect(page).to have_content 'There are currently no ended surveys.'
   end
 
-  scenario 'Participant Q&A View'
+  scenario 'Participant Q&A View', :js => true do
+    visit "/discussions/#{@discussion.id}/leader"
+    click_link 'Participant Q&A'
+
+    expect(page).to have_content 'There are currently no new participant questions.'
+    expect(page).to have_content 'There are currently no participant questions that have been answered.'
+  end
 
 end

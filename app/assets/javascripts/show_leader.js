@@ -1,26 +1,32 @@
 $('.discussions.show_leader').ready(function(){
-	var emptyList = function() {	
-		$('p.no-open').remove();
-		$('p.no-closed').remove();
-		$('p.no-ended').remove();
+	var emptyLists = function() {	
+		$('p.no-items').remove();
 		var openItems = $('ul.open-surveys-list li');
 		var closedItems = $('ul.closed-surveys-list li');
 		var endedItems = $('ul.ended-surveys-list li');
+		var newQuestions = $('ul.questions-list li');
+		var oldQuestions = $('ul.old-questions-list li');
 		if (openItems.length === 0) {
-			$('ul.open-surveys-list').append('<p class="no-open"><em>There are currently no open surveys.</em></p>');
+			$('ul.open-surveys-list').append('<p class="no-open no-items"><em>There are currently no open surveys.</em></p>');
 		};
 		if (closedItems.length === 0) {
-			$('ul.closed-surveys-list').append('<p class="no-closed"><em>There are currently no surveys ready to be sent.</em></p>');
+			$('ul.closed-surveys-list').append('<p class="no-closed no-items"><em>There are currently no surveys ready to be sent.</em></p>');
 		};
 		if (endedItems.length === 0) {
-			$('ul.ended-surveys-list').append('<p class="no-ended"><em>There are currently no ended surveys.</em></p>');
+			$('ul.ended-surveys-list').append('<p class="no-ended no-items"><em>There are currently no ended surveys.</em></p>');
+		};
+		if (newQuestions.length === 0) {
+			$('ul.questions-list').append('<p class="no-new-questions no-items"><em>There are currently no new participant questions.</em></p>');
+		};
+		if (oldQuestions.length === 0) {
+			$('ul.old-questions-list').append('<p class="no-old-questions no-items"><em>There are currently no participant questions that have been answered.</em></p>');
 		};
 	};
 
-	emptyList();
+	emptyLists();
 
 	$(document).ajaxSuccess(function() {
-		emptyList()
+		emptyLists()
 	});
 
 	$('ul.ended-surveys-list').on('click', '.view-results-button', function(e) {
