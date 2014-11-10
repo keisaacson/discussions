@@ -6,6 +6,7 @@ $('.discussions.show_leader').ready(function(){
 		var endedItems = $('ul.ended-surveys-list li');
 		var newQuestions = $('ul.questions-list li');
 		var oldQuestions = $('ul.old-questions-list li');
+		var responseLists = $('ul.survey-responses-list')
 		if (openItems.length === 0) {
 			$('ul.open-surveys-list').append('<p class="no-open no-items"><em>There are currently no open surveys.</em></p>');
 		};
@@ -20,6 +21,12 @@ $('.discussions.show_leader').ready(function(){
 		};
 		if (oldQuestions.length === 0) {
 			$('ul.old-questions-list').append('<p class="no-old-questions no-items"><em>There are currently no participant questions that have been answered.</em></p>');
+		};
+		for (var i = 0; i < responseLists.length; i++) {
+			var items = $(responseLists[i]).children(); 
+			if (items.length === 0) {
+				$(responseLists[i]).append('<p class="no-responses"><em>There were no responses to this survey.</em></p>');
+			};
 		};
 	};
 

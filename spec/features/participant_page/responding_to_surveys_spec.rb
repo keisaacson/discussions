@@ -5,18 +5,15 @@ feature 'Responding to Surveys' do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
     @survey = Survey.create(:survey_question => 'Test Survey', :discussion_id => @discussion.id, :survey_status => 'open')
     @survey2 = Survey.create(:survey_question => 'Another Survey', :discussion_id => @discussion.id, :survey_status => 'closed')
+    visit discussion_path(@discussion)
   end
 
   scenario 'Showing Open Surveys and Not Closed Surveys' do
-    visit discussion_path(@discussion)
-
     expect(page).to have_content 'Test Survey'
     expect(page).to_not have_content 'Another Survey'
   end
 
   scenario 'Responding to an Open Survey', :js => true do
-    visit discussion_path(@discussion)
-
     find(:xpath, "//textarea[@id='survey#{@survey.id}-response']").set 'Test Response'
     click_on 'Submit Response'
 
