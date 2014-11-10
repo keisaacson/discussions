@@ -32,12 +32,12 @@
 				<%= render('survey_responses/survey_response_form', {:surveys => surveys}) %>
 			</div>
 
-			<div class="question-form-container" hidden>
-				<%= render('questions/new_question_form', {:discussion => @discussion}) %>
-			</div>
-
 			<div class="answered-questions-container" hidden>
 				<%= render('questions/view_answered_questions', {:questions => questions}) %>
+			</div>
+
+			<div class="question-form-container" hidden>
+				<%= render('questions/new_question_form', {:discussion => @discussion}) %>
 			</div>
 		</div>
 	</div>

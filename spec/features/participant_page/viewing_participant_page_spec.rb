@@ -28,4 +28,12 @@ feature 'Viewing Participant Page' do
     expect(page).to have_xpath("//textarea[@id='question']")
     expect(page).to have_selector("input[type=submit][value='Submit Question']")
   end
+
+  scenario 'Return to Discussions Index' do
+    visit discussion_path(@discussion)
+    click_on 'All Discussions'
+
+    expect(current_path).to eq discussions_path
+    expect(page).to have_content 'Current Discussions'
+  end
 end

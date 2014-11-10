@@ -5,14 +5,6 @@ feature 'Leader Page' do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
   end
 
-  scenario 'Viewing the Leader Page' do
-    visit discussions_path
-    click_link 'Test Discussion'
-    click_link 'Leader View'
-
-    expect(current_path).to eq "/discussions/#{@discussion.id}/leader"
-  end
-
   scenario 'Creating a Closed Survey', :js => true do
     visit "/discussions/#{@discussion.id}/leader"
     click_on 'Create a Survey'
