@@ -5,6 +5,6 @@
 	$('span#question' + id + '-response-span').remove();
 	var content = "<%= @question.content %>";
 	var response = "<%= @question.response %>";
-	var responseHtml = '<span id="question' + id + '-answered-span"><li>' + content + '</li><p>' + response + '</p></span>';
+	var responseHtml = '<span id="question' + id + '-answered-span"><li>' + content + '</li><p><strong>Answer: </strong><em>' + response + '</em></p></span>';
 	$('.old-questions-list').append(responseHtml);
 })();

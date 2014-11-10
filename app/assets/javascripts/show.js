@@ -59,6 +59,6 @@ $('.discussions.show').ready(function(){
 	var channel2 = dispatcher.subscribe('questions');
 	channel2.bind('respond_to_question', function(data) {
 		$('p#no-questions').remove();
-		$('.answered-questions-list').append('<li>' + data['content'] + '</li><p>' + data['response'] + '</p>');
+		$('.answered-questions-list').append('<li>' + data['content'] + '</li><p><strong>Answer: </strong><em>' + data['response'] + '</em></p>');
 	});
 })

@@ -3,7 +3,7 @@
 	<% if questions['answered'] %>
 		<% questions['answered'].each do |question| %>
 			<li><%= question.content %></li>
-			<p><strong>Answer: </strong><%= question.response %></p>
+			<p><strong>Answer: </strong><em><%= question.response %></em></p>
 		<% end %>
 	<% else %>
 		<p id="no-questions"><em>The leader has not answered any questions yet.</em></p>	
