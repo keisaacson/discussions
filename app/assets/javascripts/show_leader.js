@@ -2,13 +2,18 @@ $('.discussions.show_leader').ready(function(){
 	var emptyList = function() {	
 		$('p.no-open').remove();
 		$('p.no-closed').remove();
+		$('p.no-ended').remove();
 		var openItems = $('ul.open-surveys-list li');
 		var closedItems = $('ul.closed-surveys-list li');
+		var endedItems = $('ul.ended-surveys-list li');
 		if (openItems.length === 0) {
 			$('ul.open-surveys-list').append('<p class="no-open"><em>There are currently no open surveys.</em></p>');
 		};
 		if (closedItems.length === 0) {
 			$('ul.closed-surveys-list').append('<p class="no-closed"><em>There are currently no surveys ready to be sent.</em></p>');
+		};
+		if (endedItems.length === 0) {
+			$('ul.ended-surveys-list').append('<p class="no-ended"><em>There are currently no ended surveys.</em></p>');
 		};
 	};
 

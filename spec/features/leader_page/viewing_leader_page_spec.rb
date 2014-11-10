@@ -25,4 +25,14 @@ feature 'Viewing Leader Page' do
     expect(page).to have_selector("input[type=submit][value='Create & Send Survey']")
   end
 
+  scenario 'Ended Surveys View', :js => true do
+    visit "/discussions/#{@discussion.id}/leader"
+    click_link 'Ended Surveys'
+
+    expect(page).to have_content 'Ended Surveys'
+    expect(page).to have_content 'There are currently no ended surveys.'
+  end
+
+  scenario 'Participant Q&A View'
+
 end
