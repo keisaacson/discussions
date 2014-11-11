@@ -2,13 +2,15 @@ require 'spec_helper'
 
 feature 'Viewing Leader Page' do
   background do
-    @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
+    @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
   end
 
   scenario 'Default/Current Surveys View', :js => true do
     visit discussions_path
     click_link 'Test Discussion'
     click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
 
     expect(current_path).to eq "/discussions/#{@discussion.id}/leader"
     expect(page).to have_content 'There are currently no open surveys.'
@@ -16,7 +18,11 @@ feature 'Viewing Leader Page' do
   end
 
   scenario 'Create a Survey View', :js => true do
-    visit "/discussions/#{@discussion.id}/leader"
+    visit discussion_path(@discussion)
+    click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
+
     click_link 'Create Survey'
 
     expect(page).to have_content 'Create a New Survey Question:'
@@ -26,7 +32,11 @@ feature 'Viewing Leader Page' do
   end
 
   scenario 'Ended Surveys View', :js => true do
-    visit "/discussions/#{@discussion.id}/leader"
+    visit discussion_path(@discussion)
+    click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
+
     click_link 'Ended Surveys'
 
     expect(page).to have_content 'Ended Surveys'
@@ -34,7 +44,11 @@ feature 'Viewing Leader Page' do
   end
 
   scenario 'New Questions View', :js => true do
-    visit "/discussions/#{@discussion.id}/leader"
+    visit discussion_path(@discussion)
+    click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
+
     click_link 'New Questions'
 
     expect(page).to have_content 'New Participant Questions'
@@ -42,7 +56,11 @@ feature 'Viewing Leader Page' do
   end
 
   scenario 'Answered Questions View', :js => true do
-    visit "/discussions/#{@discussion.id}/leader"
+    visit discussion_path(@discussion)
+    click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
+    
     click_link 'Answered Questions'
 
     expect(page).to have_content 'Answered Participant Questions'

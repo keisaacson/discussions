@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Showing Questions & Answers' do
   background do
-    @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
+    @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
     @question = Question.create(:content => 'Test Question', :discussion_id => @discussion.id, :question_status => 'answered', :response => 'Test Response')
     @question2 = Question.create(:content => 'Another Question', :discussion_id => @discussion.id, :question_status => 'unanswered', :response => 'Another Response')
   end

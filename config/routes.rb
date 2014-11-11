@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   root to: "discussions#index"
 
   get 'discussions/:id/leader' => 'discussions#show_leader'
-  get 'discussions/:id/leader/code' => 'discussions#leader_code'
   
   resources :discussions, :only => [:index, :show, :create] do
     resources :questions, :only => [:create]

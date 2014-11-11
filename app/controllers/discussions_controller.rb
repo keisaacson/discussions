@@ -16,17 +16,6 @@ class DiscussionsController < ApplicationController
     end
   end
 
-  def leader_code
-    discussions = Discussion.all
-    discussion_ids = discussions.map {|d| d.id}
-
-    if !discussion_ids.include?(params[:id].to_i)
-      redirect_to discussions_path
-    end
-
-    @discussion = Discussion.find(params[:id])
-  end
-
   def show_leader
     discussions = Discussion.all
     discussion_ids = discussions.map {|d| d.id}

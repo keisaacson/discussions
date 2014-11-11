@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Submitting a Question' do
   background do
-    @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
+    @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
   end
 
   scenario 'Submitting a Question', :js => true do

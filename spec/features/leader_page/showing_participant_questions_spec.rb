@@ -2,10 +2,13 @@ require 'spec_helper'
 
 feature 'Showing Participant Questions' do
   background do
-    @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
+    @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
     @question = Question.create(:content => 'Test Question', :discussion_id => @discussion.id, :question_status => 'answered', :response => 'Test Response')
     @question2 = Question.create(:content => 'Another Question', :discussion_id => @discussion.id, :question_status => 'unanswered')
-    visit "/discussions/#{@discussion.id}/leader"
+    visit discussion_path(@discussion)
+    click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
   end
 
   scenario 'Viewing Questions', :js => true do

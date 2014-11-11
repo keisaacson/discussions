@@ -2,8 +2,11 @@ require 'spec_helper'
 
 feature 'Creating a Survey' do
   background do
-    @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
-    visit "/discussions/#{@discussion.id}/leader"
+    @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
+    visit discussion_path(@discussion)
+    click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
     click_link 'Create Survey'
     @survey = 'Test Survey'
     find(:xpath, "//textarea[@id='question']").set @survey

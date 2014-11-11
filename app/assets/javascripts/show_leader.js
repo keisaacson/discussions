@@ -1,5 +1,5 @@
 $('.discussions.show_leader').ready(function(){
-	var emptyLists = function() {	
+	var emptyLeaderLists = function() {	
 		$('p.no-items').remove();
 		var openItems = $('ul.open-surveys-list li');
 		var closedItems = $('ul.closed-surveys-list li');
@@ -30,10 +30,10 @@ $('.discussions.show_leader').ready(function(){
 		};
 	};
 
-	emptyLists();
+	emptyLeaderLists();
 
 	$(document).ajaxSuccess(function() {
-		emptyLists();	
+		emptyLeaderLists();	
 	});
 
 	$('ul.ended-surveys-list').on('click', '.view-results-button', function(e) {

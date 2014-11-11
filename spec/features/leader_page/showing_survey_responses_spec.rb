@@ -2,12 +2,15 @@ require 'spec_helper'
 
 feature 'Showing Survey Responses' do
   background do
-    @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
+    @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
     @survey = Survey.create(:survey_question => 'Test Survey', :discussion_id => @discussion.id, :survey_status => 'ended')
     @survey2 = Survey.create(:survey_question => 'Another Survey', :discussion_id => @discussion.id, :survey_status => 'ended')
     @response = SurveyResponse.create(:survey_id => @survey.id, :content => 'Test Response')
     @response2 = SurveyResponse.create(:survey_id => @survey.id, :content => 'Another Response')
-    visit "/discussions/#{@discussion.id}/leader"
+    visit discussion_path(@discussion)
+    click_link 'Leader View'
+    find(:xpath, "//input[@name='leader_code']").set 'test'
+    click_on 'Submit'
     click_link 'Ended Surveys'
   end
 

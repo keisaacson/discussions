@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Viewing Participant Page' do
   background do
-    @discussion = Discussion.create(:title => 'Test Discussion', :leader_email => 'test@test.com')
+    @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
   end
 
   scenario 'Default/Surveys View' do

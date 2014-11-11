@@ -4,8 +4,6 @@
 		<% questions['answered'].each do |question| %>
 			<li><%= question.content %></li>
 			<p><strong>Answer: </strong><em><%= question.response %></em></p>
-		<% end %>
-	<% else %>
-		<p id="no-questions"><em>The leader has not answered any questions yet.</em></p>	
+		<% end %>	
 	<% end %>
 </ul>
