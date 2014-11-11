@@ -5,7 +5,7 @@ feature 'Viewing Participant Page' do
     @discussion = Discussion.create(:title => 'Test Discussion', :leader_code => 'test')
   end
 
-  scenario 'Default/Surveys View' do
+  scenario 'Default/Surveys View', :js => true do
     visit discussions_path
     click_link 'Test Discussion'
 
