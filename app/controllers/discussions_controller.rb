@@ -24,6 +24,8 @@ class DiscussionsController < ApplicationController
       redirect_to discussions_path
     end
 
+    if current_page? (controller: 'discussion', action: 'create')
+
     @discussion = Discussion.find(params[:id])
 
     if params[:leader_code] != @discussion.leader_code
@@ -38,7 +40,8 @@ class DiscussionsController < ApplicationController
     # @discussion.leader_code, @discussion.participant_code = codes.first, codes.last
     if @discussion.save
       WebsocketRails[:new_discussion].trigger(:update_discussions_index, @discussion)
-      render :show_leader
+      redirect_to {:action => 'sho'}
+      # render :show_leader
     else
       @message = 'There was an error creating your discussion'
       redirect_to root_path
