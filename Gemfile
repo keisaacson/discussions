@@ -18,8 +18,7 @@ group :test, :development do
   gem 'database_cleaner'
 end
 
-group :test do
-end
+gem 'rails_12factor', group: :production
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
