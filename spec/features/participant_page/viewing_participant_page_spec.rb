@@ -9,8 +9,8 @@ feature 'Viewing Participant Page' do
     visit discussions_path
     click_link 'Test Discussion'
 
-    expect(current_path).to eq discussion_path(@discussion)
     expect(page).to have_content 'There are currently no open surveys.'
+    expect(current_path).to eq discussion_path(@discussion)
   end
 
   scenario 'Questions & Answers View', :js => true do

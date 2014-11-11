@@ -46,8 +46,9 @@ feature 'Updating Current Surveys' do
     click_on 'Set Survey End Time'
 
     expect(page).to have_content 'Test Survey'
+    sleep 1
     expect(page).to have_content 'until survey closes'
-    sleep 2
+    sleep 1
 
     expect(page).to_not have_content 'Test Survey'
     expect(page).to have_content 'There are currently no open surveys.'
