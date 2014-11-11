@@ -8,7 +8,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">Access <%= @discussion.title %> Leader Page</h4>
       </div>
-    <%= form_tag("/discussions/#{@discussion.id}/leader", method: :get, role: "form") do -%>
+    <%= form_tag("/discussions/#{@discussion.id}/leader", method: :post, role: "form") do -%>
 	      <div class="modal-body">
 			<div class="form-group">
 				<label for="leader_code">Leader Code </label>
