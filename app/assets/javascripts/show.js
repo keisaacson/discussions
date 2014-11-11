@@ -40,8 +40,10 @@ $('.discussions.show').ready(function(){
 	channel.bind('open_survey', function(data) {
 	  var survey_question = data['survey_question'];
 	  var survey_id = data['id'];
-	  var surveyResponseHtml = '<li><strong>' + survey_question + '</strong></li><div id="survey' + survey_id + '"><form accept-charset="UTF-8" action="/surveys/' + survey_id + '/survey_responses" data-remote="true" method="post" role="form"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div><div class="form-group"><textarea type="text" class="form-control" rows="3" name="survey_response[content]" id="survey' + survey_id + '-response"></textarea></div><input type="hidden" name="survey_response[survey_id]" value="' + survey_id + '""><input type="submit" value="Submit Response" class="btn btn-xs btn-default"></form></div>';
-	  $('ul.survey-list').append(surveyResponseHtml);
+	  if ($('div#survey' + survey_id).length == 0) {
+		  var surveyResponseHtml = '<li><strong>' + survey_question + '</strong></li><div id="survey' + survey_id + '"><form accept-charset="UTF-8" action="/surveys/' + survey_id + '/survey_responses" data-remote="true" method="post" role="form"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div><div class="form-group"><textarea type="text" class="form-control" rows="3" name="survey_response[content]" id="survey' + survey_id + '-response"></textarea></div><input type="hidden" name="survey_response[survey_id]" value="' + survey_id + '""><input type="submit" value="Submit Response" class="btn btn-xs btn-default"></form></div>';
+		  $('ul.survey-list').append(surveyResponseHtml);
+	  };
 	  emptyLists();
 	});
 	channel.bind('end_survey', function(data) {
@@ -78,7 +80,9 @@ $('.discussions.show').ready(function(){
 
 	var channel2 = dispatcher.subscribe('questions');
 	channel2.bind('respond_to_question', function(data) {
-		$('.answered-questions-list').append('<li>' + data['content'] + '</li><p><strong>Answer: </strong><em>' + data['response'] + '</em></p>');
-		emptyLists();
+		if ($('li#response-question-' + data['id']).length == 0) {
+			$('.answered-questions-list').append('<li id="response-question-' + data['id'] + '">' + data['content'] + '</li><p><strong>Answer: </strong><em>' + data['response'] + '</em></p>');
+			emptyLists();
+		};
 	});
 })
