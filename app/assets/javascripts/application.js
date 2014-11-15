@@ -20,6 +20,7 @@
 //= require_tree .
 
 var dispatcher = new WebSocketRails(window.document.location.host + '/websocket');
+// uncomment the line below for TESTING
 // var dispatcher = new WebSocketRails('localhost:3000/websocket');
 dispatcher.on_open = function(data) {
   // console.log('Connection has been established: ', data);
